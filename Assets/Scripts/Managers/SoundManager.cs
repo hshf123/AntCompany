@@ -68,8 +68,8 @@ public class SoundManager
 
     AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)
     {
-        if (path.Contains("Sounds/") == false)
-            path = $"Sounds/{path}";
+        if (path.Contains("Sound/") == false)
+            path = $"Sound/{path}";
 
         AudioClip audioClip = null;
 
