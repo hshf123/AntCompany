@@ -32,7 +32,7 @@ public class UI_TitlePopup : UI_Popup
     {
         Debug.Log("Start");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-
+        Managers.UI.ShowPopupUI<UI_InitData>();
     }
     void OnContinueButton()
     {
