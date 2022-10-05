@@ -44,6 +44,5 @@ public class UI_TitlePopup : UI_Popup
     {
         Debug.Log("Collection");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-
     }
 }

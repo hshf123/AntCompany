@@ -43,13 +43,11 @@ public class UI_GuidePopup : UI_Popup
     void OnClickImage()
     {
         Debug.Log("Click");
+        Managers.Sound.Play("Sound_MainButton");
         Get<GameObject>(_currentPage).SetActive(false);
         _currentPage += 1;
         if (_currentPage == _lastPage)
-        {
-            Debug.Log("게임 시작화면 넘어가기");
             return;
-        }
         Get<GameObject>(_currentPage).SetActive(true);
 
         switch(_currentPage)

@@ -28,7 +28,9 @@ public class UI_InitData : UI_Popup
     {
         Debug.Log("데이터 초기화");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-
+        Managers.UI.CloseAllPopupUI();
+        Managers.UI.ShowPopupUI<UI_GuidePopup>();
+        Managers.Sound.Clear();
     }
     void OnCancelButton()
     {
