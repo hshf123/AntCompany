@@ -10,12 +10,14 @@ public class Managers : MonoBehaviour
     static Managers s_Instance;
     static Managers Instance { get { Init(); return s_Instance; } }
 
+    DataManager _data = new DataManager();
     PoolManager _pool = new PoolManager();
     ResourceManager _resource = new ResourceManager();
     SoundManager _sound = new SoundManager();
     Scene_Manager _scene = new Scene_Manager();
     UIManager _ui = new UIManager();
 
+    public static DataManager Data { get { Init(); return s_Instance._data; } }
     public static PoolManager Pool { get { Init(); return s_Instance._pool; } }
     public static ResourceManager Resource { get { Init(); return s_Instance._resource; } }
     public static SoundManager Sound { get { Init(); return s_Instance._sound; } }
@@ -42,6 +44,7 @@ public class Managers : MonoBehaviour
             s_Instance = go.GetComponent<Managers>();
         }
 
+        s_Instance._data.Init();
         s_Instance._pool.Init();
         s_Instance._sound.Init();
     }
