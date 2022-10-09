@@ -47,7 +47,11 @@ public class UI_GuidePopup : UI_Popup
         Get<GameObject>(_currentPage).SetActive(false);
         _currentPage += 1;
         if (_currentPage == _lastPage)
+        {
+            Managers.UI.ShowPopupUI<UI_PlayPopup>();
             return;
+        }
+
         Get<GameObject>(_currentPage).SetActive(true);
 
         switch(_currentPage)

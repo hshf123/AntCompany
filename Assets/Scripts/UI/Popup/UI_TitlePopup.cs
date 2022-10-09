@@ -9,7 +9,6 @@ public class UI_TitlePopup : UI_Popup
     {
         StartButton,
         ContinueButton,
-        CollectionButton,
     }
 
     public override bool Init()
@@ -21,7 +20,6 @@ public class UI_TitlePopup : UI_Popup
 
         Get<Button>((int)Buttons.StartButton).gameObject.BindEvent(OnStartButton);
         Get<Button>((int)Buttons.ContinueButton).gameObject.BindEvent(OnContinueButton);
-        Get<Button>((int)Buttons.CollectionButton).gameObject.BindEvent(OnCollectionButton);
 
         Managers.Sound.Play("Sound_MainTitle", Define.Sound.Effect);
 
@@ -37,12 +35,6 @@ public class UI_TitlePopup : UI_Popup
     void OnContinueButton()
     {
         Debug.Log("Continue");
-        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-
-    }
-    void OnCollectionButton()
-    {
-        Debug.Log("Collection");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
     }
 }
