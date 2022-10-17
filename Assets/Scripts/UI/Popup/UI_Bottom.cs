@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PlayPopup : UI_Popup
+public class UI_Bottom : UI_Base
 {
     enum Buttons
-    { 
-        StageButton,
-        BossButton,
+    {
+        SkillEnhancementButton,
+        StageAndBossButton,
+        EquipmentFortificationButton,
     }
 
     public override bool Init()
