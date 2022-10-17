@@ -24,14 +24,13 @@ public class DataManager
         {
             // 원래 r.Dispose()를 해서 닫아줘야 하는데 using을 사용하면 Dispose를 자동으로 해준다.
             r.MoveToContent();
-
             while (r.Read())
             {
                 if (r.Depth == 1 && r.NodeType == XmlNodeType.Element)
                 {
                     for (int i = 0; i < r.AttributeCount; i++)
                     {
-                        Debug.Log($"{r.GetAttribute(i)}");
+                        //Debug.Log($"{r.GetAttribute(i)}");
                     }
                 }
             }

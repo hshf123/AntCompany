@@ -13,7 +13,7 @@ public class UI_TitlePopup : UI_Popup
 
     public override bool Init()
     {
-        if(base.Init()==false)
+        if (base.Init() == false)
             return false;
 
         Bind<Button>(typeof(Buttons));
