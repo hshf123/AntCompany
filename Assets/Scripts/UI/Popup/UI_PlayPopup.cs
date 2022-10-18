@@ -13,6 +13,11 @@ public class UI_PlayPopup : UI_Popup
         MoneyText,
     }
 
+    enum GameObjects
+    {
+        StageList,
+    }
+
     enum Buttons
     {
         StageButton,
@@ -20,6 +25,10 @@ public class UI_PlayPopup : UI_Popup
         SkillWindowButton,
         StageAndBossButton,
         EquipmentWindowButton,
+        StageButton1,
+        StageButton2,
+        StageButton3,
+        StageButton4,
     }
 
     public override bool Init()
@@ -29,12 +38,15 @@ public class UI_PlayPopup : UI_Popup
 
         Bind<Button>(typeof(Buttons));
         BindText(typeof(Texts));
+        Bind<GameObject>(typeof(GameObjects));
 
         Get<Button>((int)Buttons.StageButton).gameObject.BindEvent(OnClickStageButton);
         Get<Button>((int)Buttons.BossButton).gameObject.BindEvent(OnClickBossButton);
         Get<Button>((int)Buttons.SkillWindowButton).gameObject.BindEvent(OnClickSkillWindowButton);
         Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
         Get<Button>((int)Buttons.EquipmentWindowButton).gameObject.BindEvent(OnClickEquipmentWindowButton);
+
+        Get<GameObject>((int)GameObjects.StageList).gameObject.SetActive(false);
 
         RefreshUI();
 
@@ -50,25 +62,32 @@ public class UI_PlayPopup : UI_Popup
 
     void OnClickStageButton()
     {
-        Debug.Log("OnClickStageButton");
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Get<Button>((int)Buttons.StageButton).gameObject.SetActive(false);
+        Get<Button>((int)Buttons.BossButton).gameObject.SetActive(false);
+        Get<GameObject>((int)GameObjects.StageList).gameObject.SetActive(true);
     }
     void OnClickBossButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Debug.Log("OnClickBossButton");
     }
 
     void OnClickSkillWindowButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_SkillPopup>();
-        Managers.UI.ClosePopupUI(this);
     }
     void OnClickStageAndBossButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Debug.Log("OnClickStageAndBossButton");
     }
     void OnClickEquipmentWindowButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
-        Managers.UI.ClosePopupUI(this);
     }
 }

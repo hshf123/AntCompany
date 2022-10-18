@@ -66,16 +66,19 @@ public class UI_SkillPopup : UI_Popup
 
     void OnClickSkillWindowButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Debug.Log("OnClickSkillWindowButton");
     }
     void OnClickStageAndBossButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_PlayPopup>();
-        Managers.UI.ClosePopupUI(this);
     }
     void OnClickEquipmentWindowButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
-        Managers.UI.ClosePopupUI(this);
     }
 }

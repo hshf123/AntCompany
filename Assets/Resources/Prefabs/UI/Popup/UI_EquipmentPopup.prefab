@@ -1276,7 +1276,7 @@ GameObject:
   - component: {fileID: 2147723591228205352}
   - component: {fileID: 2147723591228205353}
   - component: {fileID: 2147723591228205354}
-  - component: {fileID: 4855911459908513703}
+  - component: {fileID: -1300305359037541276}
   m_Layer: 5
   m_Name: UI_EquipmentPopup
   m_TagString: Untagged
@@ -1370,7 +1370,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4855911459908513703
+--- !u!114 &-1300305359037541276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2147723591228205355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5282e61285e8c142b5173eabedd6bce, type: 3}
+  m_Script: {fileID: 11500000, guid: fee5a1d52eab1f143a62c5e1109ba923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2147723591685105237
