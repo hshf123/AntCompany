@@ -17,9 +17,9 @@ public class UI_PlayPopup : UI_Popup
     {
         StageButton,
         BossButton,
-        SkillEnhancementButton,
+        SkillWindowButton,
         StageAndBossButton,
-        EquipmentFortificationButton,
+        EquipmentWindowButton,
     }
 
     public override bool Init()
@@ -32,9 +32,9 @@ public class UI_PlayPopup : UI_Popup
 
         Get<Button>((int)Buttons.StageButton).gameObject.BindEvent(OnClickStageButton);
         Get<Button>((int)Buttons.BossButton).gameObject.BindEvent(OnClickBossButton);
-        Get<Button>((int)Buttons.SkillEnhancementButton).gameObject.BindEvent(OnClickSkillEnhancementButton);
+        Get<Button>((int)Buttons.SkillWindowButton).gameObject.BindEvent(OnClickSkillWindowButton);
         Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
-        Get<Button>((int)Buttons.EquipmentFortificationButton).gameObject.BindEvent(OnClickEquipmentFortificationButton);
+        Get<Button>((int)Buttons.EquipmentWindowButton).gameObject.BindEvent(OnClickEquipmentWindowButton);
 
         RefreshUI();
 
@@ -57,16 +57,18 @@ public class UI_PlayPopup : UI_Popup
         Debug.Log("OnClickBossButton");
     }
 
-    void OnClickSkillEnhancementButton()
+    void OnClickSkillWindowButton()
     {
-        Debug.Log("OnClickSkillEnhancementButton");
+        Managers.UI.ShowPopupUI<UI_SkillPopup>();
+        Managers.UI.ClosePopupUI(this);
     }
     void OnClickStageAndBossButton()
     {
         Debug.Log("OnClickStageAndBossButton");
     }
-    void OnClickEquipmentFortificationButton()
+    void OnClickEquipmentWindowButton()
     {
-        Debug.Log("OnClickEquipmentFortificationButton");
+        Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
+        Managers.UI.ClosePopupUI(this);
     }
 }

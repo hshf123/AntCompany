@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_SkillPopup : UI_Popup
+public class UI_EquipmentPopup : UI_Popup
 {
     enum Texts
     {
@@ -14,26 +14,26 @@ public class UI_SkillPopup : UI_Popup
 
     enum Buttons
     {
-        SkillButton1,
-        SkillButton2,
-        SkillButton3,
-        SkillButton4,
-        SkillListButton1,
-        SkillListButton2,
-        SkillListButton3,
-        SkillListButton4,
-        SkillListButton5,
-        SkillListButton6,
-        SkillListButton7,
-        SkillListButton8,
-        SkillListButton9,
-        SkillListButton10,
-        SkillListButton11,
-        SkillListButton12,
-        SkillListButton13,
-        SkillListButton14,
-        SkillListButton15,
-        SkillListButton16,
+        EquipmentButton1,
+        EquipmentButton2,
+        EquipmentButton3,
+        EquipmentButton4,
+        EquipmentListButton1,
+        EquipmentListButton2,
+        EquipmentListButton3,
+        EquipmentListButton4,
+        EquipmentListButton5,
+        EquipmentListButton6,
+        EquipmentListButton7,
+        EquipmentListButton8,
+        EquipmentListButton9,
+        EquipmentListButton10,
+        EquipmentListButton11,
+        EquipmentListButton12,
+        EquipmentListButton13,
+        EquipmentListButton14,
+        EquipmentListButton15,
+        EquipmentListButton16,
         SkillWindowButton,
         StageAndBossButton,
         EquipmentWindowButton,
@@ -53,6 +53,7 @@ public class UI_SkillPopup : UI_Popup
 
         RefreshUI();
 
+
         return true;
     }
 
@@ -66,7 +67,8 @@ public class UI_SkillPopup : UI_Popup
 
     void OnClickSkillWindowButton()
     {
-        Debug.Log("OnClickSkillWindowButton");
+        Managers.UI.ShowPopupUI<UI_SkillPopup>();
+        Managers.UI.ClosePopupUI(this);
     }
     void OnClickStageAndBossButton()
     {
@@ -75,7 +77,6 @@ public class UI_SkillPopup : UI_Popup
     }
     void OnClickEquipmentWindowButton()
     {
-        Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
-        Managers.UI.ClosePopupUI(this);
+        Debug.Log("OnClickEquipmentWindowButton");
     }
 }
