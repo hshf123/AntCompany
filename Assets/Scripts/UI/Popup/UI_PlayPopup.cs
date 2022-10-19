@@ -45,6 +45,10 @@ public class UI_PlayPopup : UI_Popup
         Get<Button>((int)Buttons.SkillWindowButton).gameObject.BindEvent(OnClickSkillWindowButton);
         Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
         Get<Button>((int)Buttons.EquipmentWindowButton).gameObject.BindEvent(OnClickEquipmentWindowButton);
+        Get<Button>((int)Buttons.StageButton1).gameObject.BindEvent(OnClickStage1InitButton);
+        Get<Button>((int)Buttons.StageButton2).gameObject.BindEvent(OnClickStage2InitButton);
+        Get<Button>((int)Buttons.StageButton3).gameObject.BindEvent(OnClickStage3InitButton);
+        Get<Button>((int)Buttons.StageButton4).gameObject.BindEvent(OnClickStage4InitButton);
 
         Get<GameObject>((int)GameObjects.StageList).gameObject.SetActive(false);
 
@@ -90,4 +94,23 @@ public class UI_PlayPopup : UI_Popup
         Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
     }
+
+#region 스테이지
+    void OnClickStage1InitButton()
+    {
+        
+    }
+    void OnClickStage2InitButton()
+    {
+
+    }
+    void OnClickStage3InitButton()
+    {
+
+    }
+    void OnClickStage4InitButton()
+    {
+
+    }
+#endregion
 }

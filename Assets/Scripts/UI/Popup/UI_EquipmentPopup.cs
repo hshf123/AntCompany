@@ -53,7 +53,6 @@ public class UI_EquipmentPopup : UI_Popup
 
         RefreshUI();
 
-
         return true;
     }
 
