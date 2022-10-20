@@ -32,6 +32,7 @@ public class UI_Stage1Popup : UI_StagePopup
         if(hp<=0)
         {
             hp = 0;
+            // TODO : 스테이지 종료
         }
         GetText((int)Texts.HpText).text = hp.ToString();
     }

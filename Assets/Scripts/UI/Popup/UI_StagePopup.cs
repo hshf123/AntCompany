@@ -8,6 +8,7 @@ public class UI_StagePopup : UI_Popup
     // TODO : 데이터시트에서 받는걸로
     public StageLevels StageLevel { get; protected set; } = StageLevels.None;
     public int MonsterCount { get; protected set; }
+    public List<MonsterController> Monsters = new List<MonsterController>();
 
     public enum StageLevels
     {
@@ -48,7 +49,9 @@ public class UI_StagePopup : UI_Popup
     {
         for(int i=0; i<MonsterCount; i++)
         {
-            Managers.UI.MakeSubItem<UI_StagePopup>(gameObject.transform, "Monster");
+            UI_StagePopup monster = Managers.UI.MakeSubItem<UI_StagePopup>(gameObject.transform, "Monster");
+            MonsterController mc = monster.GetComponent<MonsterController>();
+            Monsters.Add(mc);
         }
     }
 }
