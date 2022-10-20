@@ -35,6 +35,6 @@ public class UI_InitData : UI_Popup
     void OnCancelButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ClosePopupUI();
     }
 }

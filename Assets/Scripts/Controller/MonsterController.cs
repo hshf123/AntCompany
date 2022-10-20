@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
+    float _checkTime = 0f;
+    float _coolTime = 1f;
+    bool _canAttack = true;
     RectTransform _transform;
     public Vector2 Position
     {
@@ -42,6 +45,8 @@ public class MonsterController : MonoBehaviour
                     _animator.Play("Monster_Attack");
                     break;
             }
+
+            _state = value;
         }
     }
 
@@ -56,6 +61,13 @@ public class MonsterController : MonoBehaviour
 
     void Update()
     {
+        if ((_checkTime += Time.deltaTime) >= _coolTime)
+        {
+            _canAttack = true;
+            _checkTime = 0;
+        }
+        else
+            _canAttack = false;
         UpdateAnim();
     }
 
@@ -63,10 +75,11 @@ public class MonsterController : MonoBehaviour
     {
         if (Position.y <= -426f)
         {
-            // TODO : 공격
             State = MonsterState.Attack;
             Position = new Vector2(0, -426f);
-
+            // TODO : 벽 체력 깎기
+            if (_canAttack)
+                Managers.Game.HP -= 5;
         }
         else
         {
