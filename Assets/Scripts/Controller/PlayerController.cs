@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        _animator.Play("Monster_Walk");
+        _animator.Play("PlayerIDLE");
         State = PlayerState.IDLE;
     }
 
