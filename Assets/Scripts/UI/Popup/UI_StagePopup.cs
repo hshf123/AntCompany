@@ -49,7 +49,7 @@ public class UI_StagePopup : UI_Popup
     {
         for(int i=0; i<MonsterCount; i++)
         {
-            UI_StagePopup monster = Managers.UI.MakeSubItem<UI_StagePopup>(gameObject.transform, "Monster");
+            GameObject monster = Managers.Resource.Instantiate("Objects/Monster", gameObject.transform);
             MonsterController mc = monster.GetComponent<MonsterController>();
             Monsters.Add(mc);
         }

@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_checkTime >= _coolTime)
         {
-            UI_StagePopup arrow = Managers.UI.MakeSubItem<UI_StagePopup>(_stage.transform, "Arrow");
+            GameObject arrow = Managers.Resource.Instantiate("Objects/Arrow", _stage.transform);
             arrow.transform.position = gameObject.transform.position;
             _checkTime = 0;
             arrow.GetComponent<ArrowController>().SetTarget(_target.transform.position);

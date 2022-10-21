@@ -1204,6 +1204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3f0541fb9b9b84c958ce9a035fb2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Monsters: []
 --- !u!1 &8673784330609593001
 GameObject:
   m_ObjectHideFlags: 0
