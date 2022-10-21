@@ -29,10 +29,11 @@ public class PlayerController : MonoBehaviour
             switch (value)
             {
                 case PlayerState.IDLE:
-                    _animator.Play("PlayerIdle");
+                    _animator.Play("Player_Idle");
                     break;
                 case PlayerState.Attack:
-                    _animator.Play("PlayerAttack");
+                    _animator.speed = Managers.Game.AttackSpeed;
+                    _animator.Play("Player_Attack");
                     break;
             }
 
@@ -43,7 +44,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        _animator.Play("PlayerIDLE");
         State = PlayerState.IDLE;
         _stage = gameObject.transform.parent.gameObject;
         _attackRange = Screen.height;
@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
             arrow.transform.position = gameObject.transform.position;
             _checkTime = 0;
             arrow.GetComponent<ArrowController>().SetTarget(_target.transform.position);
+            State = PlayerState.Attack;
         }
     }
 }

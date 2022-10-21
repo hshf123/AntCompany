@@ -35,6 +35,10 @@ public class UI_Stage1Popup : UI_StagePopup
             // TODO : 스테이지 종료
         }
         GetText((int)Texts.HpText).text = hp.ToString();
+        float ratio = hp / (float)Managers.Game.MaxHP;
+        if (ratio <= 0.5f)
+            GetText((int)Texts.HpText).color = Color.black;
+        Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(ratio);
     }
 
     void OnClickSkillButton1()

@@ -11,7 +11,7 @@ public class ArrowController : MonoBehaviour
     void Start()
     {
         // TODO : 데이터 시트에서 가져올 것
-        _speed = 10f;
+        _speed = 20f;
     }
 
     public void SetTarget(Vector3 target)
@@ -32,7 +32,6 @@ public class ArrowController : MonoBehaviour
 
     void MoveToTargetDir()
     {
-        // TODO : 몬스터 피격판정
         if (CheckPosRange(gameObject.transform.position) == false)
         {
             Managers.Resource.Destroy(gameObject);
@@ -51,5 +50,14 @@ public class ArrowController : MonoBehaviour
         if (y < 0 || y > Screen.height)
             return false;
         return true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        MonsterController mc = collision.GetComponent<MonsterController>();
+        if (mc == null)
+            return;
+        Managers.Resource.Destroy(gameObject);
+        // TODO : 몬스터 데미지판정
     }
 }

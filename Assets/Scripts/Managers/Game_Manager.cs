@@ -13,6 +13,7 @@ public class Game_Manager
     // TODO : 스킬정보
 
     // in Game
+    public int MaxHP { get; private set; }
     public int HP { get; set; }
     public float AttackSpeed { get; set; }
     public int Attack { get; set; }
@@ -23,6 +24,7 @@ public class Game_Manager
         Level = 1;
         Money = 10000;
 
+        MaxHP = 1500;
         HP = 1500;
         AttackSpeed = 1f;
         Attack = 10;
