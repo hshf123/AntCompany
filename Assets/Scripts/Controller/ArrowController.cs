@@ -18,6 +18,10 @@ public class ArrowController : MonoBehaviour
     {
         _target = target;
         _dir = (target - gameObject.transform.position).normalized;
+        // Set Rotation
+        float angle = Mathf.Rad2Deg * (Mathf.Atan2(_dir.y, _dir.x));
+        // 90도를 빼는 이유는 좌표평면 위에서 X축을 기준으로 시작하기 때문이다.
+        transform.localRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 
     void Update()
