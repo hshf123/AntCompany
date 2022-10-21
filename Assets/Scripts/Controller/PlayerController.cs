@@ -52,9 +52,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _checkTime += Time.deltaTime;
-        // TODO : 몬스터 발견
         FindMonster();
-        // TODO : 몬스터 한테 화살 날림
         if (_target != null && _canAttack)
             AutoAttack();
     }
@@ -62,15 +60,21 @@ public class PlayerController : MonoBehaviour
     void FindMonster()
     {
         UI_StagePopup stage = _stage.GetComponent<UI_StagePopup>();
+        if (stage.Monsters[0] == null)
+            return;
+
         _target = stage.Monsters[0];
         foreach (MonsterController mc in stage.Monsters)
         {
-            if (_target.transform.position.y >= mc.transform.position.y && _target != null)
+            if(_target != null)
             {
-                if (_target.transform.position.y <= _attackRange)
-                    _target = mc;
-                else
-                    _target = null;
+                if (_target.transform.position.y >= mc.transform.position.y)
+                {
+                    if (_target.transform.position.y <= _attackRange)
+                        _target = mc;
+                    else
+                        _target = null;
+                }
             }
         }
     }

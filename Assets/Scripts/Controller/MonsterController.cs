@@ -55,7 +55,7 @@ public class MonsterController : MonoBehaviour
         _transform = GetComponent<RectTransform>();
         _animator = GetComponent<Animator>();
         _animator.Play("Monster_Walk");
-        Position = new Vector2(0, 2000);
+        SetRandPosition();
         State = MonsterState.Move;
     }
 
@@ -71,22 +71,28 @@ public class MonsterController : MonoBehaviour
         UpdateAnim();
     }
 
+    void SetRandPosition()
+    {
+        float xRange = gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;
+        float yRange = 200;
+        float x = Random.Range(-xRange + 30, xRange - 30);
+        float y = Random.Range(2000, 2000 + yRange + 1);
+        Position = new Vector3(x, y);
+    }
+
     void UpdateAnim()
     {
         if (Position.y <= -426f)
         {
             State = MonsterState.Attack;
-            Position = new Vector2(0, -426f);
-            // TODO : 벽 체력 깎기
+            Position = new Vector2(Position.x, -426f);
             if (_canAttack)
                 Managers.Game.HP -= 5;
         }
         else
         {
-            // TODO : 이동
             State = MonsterState.Move;
             Position += new Vector2(0, -1f) * Time.deltaTime * _speed;
-
         }
     }
 }
