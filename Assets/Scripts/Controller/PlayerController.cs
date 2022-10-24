@@ -60,8 +60,12 @@ public class PlayerController : MonoBehaviour
     void FindMonster()
     {
         UI_StagePopup stage = _stage.GetComponent<UI_StagePopup>();
-        if (stage.Monsters[0] == null)
+        if (stage.Monsters.Count == 0)
+        {
+            _target = null;
+            State = PlayerState.IDLE;
             return;
+        }
 
         _target = stage.Monsters[0];
         foreach (MonsterController mc in stage.Monsters)

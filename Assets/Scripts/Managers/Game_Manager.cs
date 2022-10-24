@@ -14,7 +14,7 @@ public class Game_Manager
 
     // in Game
     public int MaxHP { get; private set; }
-    public int HP { get; set; }
+    public int HP { get; private set; }
     public float AttackSpeed { get; set; }
     public int Attack { get; set; }
 
@@ -24,6 +24,7 @@ public class Game_Manager
         Level = 1;
         Money = 10000;
 
+        // TEMP
         MaxHP = 1500;
         HP = 1500;
         AttackSpeed = 1f;
@@ -32,7 +33,13 @@ public class Game_Manager
 
     void Update()
     {
-        // TODO : 몬스터 피격 판정, 몬스터 공격 판정
 
+    }
+
+    public void OnDamaged(int damage)
+    {
+        HP -= damage;
+        if (HP <= 0)
+            HP = 0;
     }
 }

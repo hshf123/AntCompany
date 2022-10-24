@@ -52,6 +52,7 @@ public class UI_StagePopup : UI_Popup
             GameObject monster = Managers.Resource.Instantiate("Objects/Monster", gameObject.transform);
             MonsterController mc = monster.GetComponent<MonsterController>();
             Monsters.Add(mc);
+            mc.SetStage(gameObject);
         }
     }
 }

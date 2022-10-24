@@ -59,5 +59,6 @@ public class ArrowController : MonoBehaviour
             return;
         Managers.Resource.Destroy(gameObject);
         // TODO : 몬스터 데미지판정
+        mc.OnDamaged(Managers.Game.Attack);
     }
 }

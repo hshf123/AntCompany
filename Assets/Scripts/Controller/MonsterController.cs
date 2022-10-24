@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
+    int _maxHp;
+    int _hp;
+    int _attack;
+    float _speed;
+
     float _checkTime = 0f;
     float _coolTime = 1f;
     bool _canAttack = true;
@@ -19,8 +24,9 @@ public class MonsterController : MonoBehaviour
             _transform.anchoredPosition = value;
         }
     }
-    public float _speed = 200f;
     Animator _animator;
+    UI_StagePopup _stage;
+    HpBar _hpBar;
 
     protected enum MonsterState
     {
@@ -57,6 +63,14 @@ public class MonsterController : MonoBehaviour
         _animator.Play("Monster_Walk");
         SetRandPosition();
         State = MonsterState.Move;
+        _hpBar = Utils.FindChild(gameObject, "HP").gameObject.GetComponent<HpBar>();
+        if (_hpBar == null)
+            Debug.Log("Failed to find HPBar");
+
+        _maxHp = 100;
+        _hp = 100;
+        _attack = 10;
+        _speed = 200f;
     }
 
     void Update()
@@ -87,12 +101,41 @@ public class MonsterController : MonoBehaviour
             State = MonsterState.Attack;
             Position = new Vector2(Position.x, -426f);
             if (_canAttack)
-                Managers.Game.HP -= 5;
+                Managers.Game.OnDamaged(_attack);
         }
         else
         {
             State = MonsterState.Move;
             Position += new Vector2(0, -1f) * Time.deltaTime * _speed;
         }
+    }
+
+    public void OnDamaged(int damage)
+    {
+        _hp -= damage;
+        if (_hp <= 0)
+            _hp = 0;
+
+        float ratio = (float)_hp / _maxHp;
+        _hpBar.SetHpBar(ratio);
+
+        if (_hp == 0)
+            OnDead();
+    }
+
+    public void SetStage(GameObject stage)
+    {
+        UI_StagePopup sp = stage.GetComponent<UI_StagePopup>();
+        if (sp == null)
+            return;
+
+        _stage = sp;
+    }
+
+    void OnDead()
+    {
+        Managers.Resource.Destroy(gameObject);
+        _stage.Monsters.Remove(gameObject.GetComponent<MonsterController>());
+        // TODO : º“∏Í ¿Ã∆Â∆Æ
     }
 }
