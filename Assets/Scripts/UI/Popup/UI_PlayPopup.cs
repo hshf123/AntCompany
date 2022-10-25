@@ -98,19 +98,21 @@ public class UI_PlayPopup : UI_Popup
 #region 스테이지
     void OnClickStage1InitButton()
     {
-        
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_Stage1Popup>();
     }
     void OnClickStage2InitButton()
     {
-
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
     }
     void OnClickStage3InitButton()
     {
-
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
     }
     void OnClickStage4InitButton()
     {
-
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
     }
 #endregion
 }

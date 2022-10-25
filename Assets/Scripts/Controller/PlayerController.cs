@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
             _checkTime = 0;
             arrow.GetComponent<ArrowController>().SetTarget(_target.transform.position);
             State = PlayerState.Attack;
+            Managers.Sound.Play("Sound_AttackButton");
         }
     }
 }

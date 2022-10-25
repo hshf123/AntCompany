@@ -101,7 +101,10 @@ public class MonsterController : MonoBehaviour
             State = MonsterState.Attack;
             Position = new Vector2(Position.x, -426f);
             if (_canAttack)
+            {
                 Managers.Game.OnDamaged(_attack);
+                Managers.Sound.Play("Sound_Cancelbutton");
+             }
         }
         else
         {
@@ -118,6 +121,7 @@ public class MonsterController : MonoBehaviour
 
         float ratio = (float)_hp / _maxHp;
         _hpBar.SetHpBar(ratio);
+        Managers.Sound.Play("Sound_PlayerAttacked");
 
         if (_hp == 0)
             OnDead();

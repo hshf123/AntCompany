@@ -22,6 +22,7 @@ public class UI_Stage1Popup : UI_StagePopup
         MonsterCount = 5;
 
         CreateMonster();
+        Managers.Sound.Play("Sound_Battle", Define.Sound.Bgm);
 
         return true;
     }
@@ -44,7 +45,7 @@ public class UI_Stage1Popup : UI_StagePopup
     void StageEnd()
     {
         // TODO : 스테이지 종료
-
+        
     }
 
     void OnClickSkillButton1()

@@ -48,6 +48,7 @@ public class UI_GuidePopup : UI_Popup
         _currentPage += 1;
         if (_currentPage == _lastPage)
         {
+            Managers.UI.ClosePopupUI();
             Managers.UI.ShowPopupUI<UI_PlayPopup>();
             return;
         }
