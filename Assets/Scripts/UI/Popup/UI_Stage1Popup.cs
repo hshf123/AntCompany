@@ -19,7 +19,7 @@ public class UI_Stage1Popup : UI_StagePopup
         Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.HP);
         GetText((int)Texts.HpText).text = Managers.Game.HP.ToString();
 
-        MonsterCount = 1;
+        MonsterCount = 5;
 
         CreateMonster();
 

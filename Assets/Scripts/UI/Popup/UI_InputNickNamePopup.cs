@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_InitData : UI_Popup
+public class UI_InputNickNamePopup : UI_Popup
 {
     enum Buttons
     {
         CheckButton,
         CancelButton,
+    }
+
+    enum Texts
+    {
+        ValueText,
     }
 
     public override bool Init()
@@ -17,6 +22,7 @@ public class UI_InitData : UI_Popup
             return false;
 
         Bind<Button>(typeof(Buttons));
+        BindText(typeof(Texts));
 
         Get<Button>((int)Buttons.CheckButton).gameObject.BindEvent(OnCheckButton);
         Get<Button>((int)Buttons.CancelButton).gameObject.BindEvent(OnCancelButton);
@@ -26,10 +32,11 @@ public class UI_InitData : UI_Popup
 
     void OnCheckButton()
     {
-        Debug.Log("데이터 초기화");
+        Managers.Data.Player.Name = GetText((int)Texts.ValueText).text;
+        Debug.Log($"닉네임 저장 : {Managers.Data.Player.Name}");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-        Managers.UI.ClosePopupUI();
-        Managers.UI.ShowPopupUI<UI_InputNickNamePopup>();
+        Managers.UI.CloseAllPopupUI();
+        Managers.UI.ShowPopupUI<UI_GuidePopup>();
         Managers.Sound.Clear();
     }
     void OnCancelButton()
