@@ -31,10 +31,13 @@ public class UI_TitlePopup : UI_Popup
         Debug.Log("Start");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.ShowPopupUI<UI_InitData>();
+
     }
     void OnContinueButton()
     {
         Debug.Log("Continue");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+
+        // TODO : 저장된 데이터 불러오기, 없다면 새로시작
     }
 }

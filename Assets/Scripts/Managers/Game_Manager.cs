@@ -38,6 +38,16 @@ public class Game_Manager
             return;
         }
 
+        DataSettings();
+    }
+
+    void Update()
+    {
+        // TODO
+    }
+
+    void DataSettings()
+    {
         Level = _playerData.Level;
         MaxHP = _playerData.MaxHp;
         HP = _playerData.Hp;
@@ -45,11 +55,6 @@ public class Game_Manager
         AttackSpeed = _playerData.AttackSpeed;
 
         ArrowSpeed = _arrowData.Speed;
-    }
-
-    void Update()
-    {
-        // TODO
     }
 
     public void OnDamaged(int damage)

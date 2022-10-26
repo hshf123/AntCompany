@@ -5,6 +5,7 @@ using System.IO;
 using System.Xml;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public interface ILoader<Key, Value>
 {
@@ -13,6 +14,8 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
+    public Save save = new Save();
+
     public Dictionary<int, Monster> MonsterDict { get; private set; } = new Dictionary<int, Monster>();
     public Dictionary<int, Player> PlayerDict { get; private set; } = new Dictionary<int, Player>();
     public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
@@ -33,9 +36,20 @@ public class DataManager
         return JsonUtility.FromJson<Loader>(json.text);
     }
 
-    public void Save()
+    public void SaveNewFile()
     {
-        Save save = new Save();
+        save.Name = Managers.Game.Name;
+        save.Level = Managers.Game.Level;
+        save.Exp = Managers.Game.Exp;
+        save.Money = Managers.Game.Money;
+
+        string path = Path.Combine(Application.persistentDataPath, "SaveData.json");
+        string json = JsonUtility.ToJson(save, true);
+        File.WriteAllText(path, json);
+    }
+
+    public void SaveFile()
+    {
         save.Name = Managers.Game.Name;
         save.Level = Managers.Game.Level;
         save.Exp = Managers.Game.Exp;
@@ -48,7 +62,14 @@ public class DataManager
 
     void SaveDataLoad()
     {
+        TextAsset json = Managers.Resource.Load<TextAsset>(Path.Combine(Application.persistentDataPath, "SaveData.json"));
+        if(json == null)
+        {
+            Debug.Log("Failed to load save data");
+            return;
+        }
 
+        save = JsonUtility.FromJson<Save>(json.text);
     }
 
     //void ReadXMLData()
