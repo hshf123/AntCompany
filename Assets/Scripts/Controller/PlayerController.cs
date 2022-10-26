@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         _target = stage.Monsters[0];
         foreach (MonsterController mc in stage.Monsters)
         {
-            if(_target != null)
+            if (_target != null)
             {
                 if (_target.transform.position.y >= mc.transform.position.y)
                 {

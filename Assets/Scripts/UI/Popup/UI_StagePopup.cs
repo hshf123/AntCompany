@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class UI_StagePopup : UI_Popup
 {
-    // TODO : 데이터시트에서 받는걸로
     public StageLevels StageLevel { get; protected set; } = StageLevels.None;
     public int MonsterCount { get; protected set; }
     public List<MonsterController> Monsters = new List<MonsterController>();
+    protected Stage _stageData;
 
     public enum StageLevels
     {

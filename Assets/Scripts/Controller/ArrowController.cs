@@ -10,8 +10,7 @@ public class ArrowController : MonoBehaviour
 
     void Start()
     {
-        // TODO : 데이터 시트에서 가져올 것
-        _speed = 20f;
+        _speed = Managers.Game.ArrowSpeed;
     }
 
     public void SetTarget(Vector3 target)

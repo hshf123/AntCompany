@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Game_Manager
 {
+    Player _playerData;
+    Arrow _arrowData;
+
     // Main 정보
-    public string NickName { get; private set; }
-    public int Level { get; private set; }
+    public string Name { get; set; }
+    public int Level { get; set; }
+    public float MaxExp { get; set; }
     public float Exp { get; set; }
-    public int Money { get; private set; }
+    public int Money { get; set; }
 
     // TODO : 스킬정보
 
@@ -18,22 +22,34 @@ public class Game_Manager
     public float AttackSpeed { get; set; }
     public int Attack { get; set; }
 
+    public float ArrowSpeed { get; set; }
+
     public void Init()
     {
-        NickName = "LeafC";
-        Level = 1;
-        Money = 10000;
+        // TODO : 레벨에 맞춰서 데이터 로드
+        if(Managers.Data.PlayerDict.TryGetValue(1, out _playerData) == false)
+        {
+            Debug.Log("Failed to load player data");
+            return;
+        }
+        if (Managers.Data.ArrowDict.TryGetValue(1, out _arrowData) == false)
+        {
+            Debug.Log("Failed to load arrow data");
+            return;
+        }
 
-        // TEMP
-        MaxHP = 1500;
-        HP = 1500;
-        AttackSpeed = 1f;
-        Attack = 10;
+        Level = _playerData.Level;
+        MaxHP = _playerData.MaxHp;
+        HP = _playerData.Hp;
+        Attack = _playerData.Attack;
+        AttackSpeed = _playerData.AttackSpeed;
+
+        ArrowSpeed = _arrowData.Speed;
     }
 
     void Update()
     {
-
+        // TODO
     }
 
     public void OnDamaged(int damage)

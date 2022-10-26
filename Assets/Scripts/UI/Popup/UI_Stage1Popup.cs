@@ -19,7 +19,13 @@ public class UI_Stage1Popup : UI_StagePopup
         Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.HP);
         GetText((int)Texts.HpText).text = Managers.Game.HP.ToString();
 
-        MonsterCount = 5;
+        if (Managers.Data.StageDict.TryGetValue((int)StageLevel, out _stageData) == false)
+        {
+            Debug.Log($"Failed to load {StageLevel} data");
+            return false;
+        }
+
+        MonsterCount = _stageData.MonsterCount;
 
         CreateMonster();
         Managers.Sound.Play("Sound_Battle", Define.Sound.Bgm);
@@ -30,7 +36,7 @@ public class UI_Stage1Popup : UI_StagePopup
     void Update()
     {
         int hp = Managers.Game.HP;
-        if(hp<=0)
+        if (hp <= 0)
         {
             hp = 0;
             StageEnd();
@@ -45,7 +51,7 @@ public class UI_Stage1Popup : UI_StagePopup
     void StageEnd()
     {
         // TODO : 스테이지 종료
-        
+
     }
 
     void OnClickSkillButton1()

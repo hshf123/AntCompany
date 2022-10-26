@@ -1,43 +1,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+
+public interface ILoader<Key, Value>
+{
+    Dictionary<Key, Value> MakeDict();
+}
 
 public class DataManager
 {
-    public MonsterData Monster;
-    public PlayerData Player;
-    public Stage1Data Stage1;
+    public Dictionary<int, Monster> MonsterDict { get; private set; } = new Dictionary<int, Monster>();
+    public Dictionary<int, Player> PlayerDict { get; private set; } = new Dictionary<int, Player>();
+    public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
+    public Dictionary<int, Arrow> ArrowDict { get; private set; } = new Dictionary<int, Arrow>();
 
     public void Init()
     {
-        InitMonsterData();
-        InitPlayerData();
-        InitStage1Data();
+        MonsterDict = LoadJson<MonsterData, int, Monster>("MonsterData").MakeDict();
+        PlayerDict = LoadJson<PlayerData, int, Player>("PlayerData").MakeDict();
+        StageDict = LoadJson<StageData, int, Stage>("StageData").MakeDict();
+        ArrowDict = LoadJson<ArrowData, int, Arrow>("ArrowData").MakeDict();
     }
 
-    void InitMonsterData()
+    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
-        Monster = new MonsterData();
-        Monster.Attack = 10;
-        Monster.MaxHp = 100;
-        Monster.Hp = 100;
+        TextAsset json = Managers.Resource.Load<TextAsset>($"Data/{path}");
+        Debug.Log(json.text);
+        return JsonUtility.FromJson<Loader>(json.text);
     }
-    void InitPlayerData()
-    {
-        Player = new PlayerData();
-        Player.Level = 1;
-        Player.Exp = 0;
-        Player.Money = 100000;
 
-        Player.Hp = 1500;
-        Player.Attack = 20;
-    }
-    void InitStage1Data()
+    public void Save()
     {
-        Stage1 = new Stage1Data();
-        Stage1.MonsterCount = 5;
+        Save save = new Save();
+        save.Name = Managers.Game.Name;
+        save.Level = Managers.Game.Level;
+        save.Exp = Managers.Game.Exp;
+        save.Money = Managers.Game.Money;
+
+        string path = Path.Combine(Application.persistentDataPath, "SaveData.json");
+        string json = JsonUtility.ToJson(save, true);
+        File.WriteAllText(path, json);
+    }
+
+    void SaveDataLoad()
+    {
+
     }
 
     //void ReadXMLData()

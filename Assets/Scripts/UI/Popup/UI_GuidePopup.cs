@@ -42,7 +42,6 @@ public class UI_GuidePopup : UI_Popup
 
     void OnClickImage()
     {
-        Debug.Log("Click");
         Managers.Sound.Play("Sound_MainButton");
         Get<GameObject>(_currentPage).SetActive(false);
         _currentPage += 1;

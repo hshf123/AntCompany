@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
+    Monster monsterData;
     int _maxHp;
     int _hp;
     int _attack;
@@ -67,10 +68,16 @@ public class MonsterController : MonoBehaviour
         if (_hpBar == null)
             Debug.Log("Failed to find HPBar");
 
-        _maxHp = 100;
-        _hp = 100;
-        _attack = 10;
-        _speed = 200f;
+        if(Managers.Data.MonsterDict.TryGetValue((int)_stage.StageLevel, out monsterData)==false)
+        {
+            Debug.Log("Failed to load monster data");
+            return;
+        }
+
+        _maxHp = monsterData.MaxHp;
+        _hp = monsterData.Hp;
+        _attack = monsterData.Attack;
+        _speed = monsterData.Speed;
     }
 
     void Update()

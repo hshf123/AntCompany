@@ -59,7 +59,7 @@ public class UI_SkillPopup : UI_Popup
     void RefreshUI()
     {
         GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
-        GetText((int)Texts.NickNameText).text = Managers.Game.NickName;
+        GetText((int)Texts.NickNameText).text = Managers.Game.Name;
         GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
     }
 
