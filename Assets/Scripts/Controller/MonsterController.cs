@@ -10,6 +10,7 @@ public class MonsterController : MonoBehaviour
     int _attack;
     float _speed;
 
+    public bool InSkillRange { get; private set; } = false;
     float _checkTime = 0f;
     float _coolTime = 1f;
     bool _canAttack = true;
@@ -68,7 +69,7 @@ public class MonsterController : MonoBehaviour
         if (_hpBar == null)
             Debug.Log("Failed to find HPBar");
 
-        if(Managers.Data.MonsterDict.TryGetValue((int)_stage.StageLevel, out monsterData)==false)
+        if (Managers.Data.MonsterDict.TryGetValue((int)_stage.StageLevel, out monsterData) == false)
         {
             Debug.Log("Failed to load monster data");
             return;
@@ -111,7 +112,7 @@ public class MonsterController : MonoBehaviour
             {
                 Managers.Game.OnDamaged(_attack);
                 Managers.Sound.Play("Sound_Cancelbutton");
-             }
+            }
         }
         else
         {
@@ -130,7 +131,7 @@ public class MonsterController : MonoBehaviour
         _hpBar.SetHpBar(ratio);
         Managers.Sound.Play("Sound_PlayerAttacked");
 
-        if (_hp == 0)
+        if (_hp == 0 && gameObject != null)
             OnDead();
     }
 
@@ -146,7 +147,17 @@ public class MonsterController : MonoBehaviour
     void OnDead()
     {
         Managers.Resource.Destroy(gameObject);
-        _stage.Monsters.Remove(gameObject.GetComponent<MonsterController>());
+        Managers.Game.Monsters.Remove(gameObject.GetComponent<MonsterController>());
         // TODO : º“∏Í ¿Ã∆Â∆Æ
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        InSkillRange = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        InSkillRange = false;
     }
 }

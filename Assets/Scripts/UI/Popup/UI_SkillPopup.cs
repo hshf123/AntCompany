@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UI_SkillPopup : UI_Popup
 {
+    bool _skillSelected = false;
+
     enum Texts
     {
         LevelText,
@@ -39,6 +41,26 @@ public class UI_SkillPopup : UI_Popup
         EquipmentWindowButton,
     }
 
+    enum Images
+    {
+        SkillListButtonIcon1,
+        SkillListButtonIcon2,
+        SkillListButtonIcon3,
+        SkillListButtonIcon4,
+        SkillListButtonIcon5,
+        SkillListButtonIcon6,
+        SkillListButtonIcon7,
+        SkillListButtonIcon8,
+        SkillListButtonIcon9,
+        SkillListButtonIcon10,
+        SkillListButtonIcon11,
+        SkillListButtonIcon12,
+        SkillListButtonIcon13,
+        SkillListButtonIcon14,
+        SkillListButtonIcon15,
+        SkillListButtonIcon16,
+    }
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -46,10 +68,13 @@ public class UI_SkillPopup : UI_Popup
 
         Bind<Button>(typeof(Buttons));
         BindText(typeof(Texts));
+        Bind<Image>(typeof(Images));
 
         Get<Button>((int)Buttons.SkillWindowButton).gameObject.BindEvent(OnClickSkillWindowButton);
         Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
         Get<Button>((int)Buttons.EquipmentWindowButton).gameObject.BindEvent(OnClickEquipmentWindowButton);
+
+        Get<Button>((int)Buttons.SkillListButton1).gameObject.BindEvent(OnClickSkillListButton);
 
         RefreshUI();
 
@@ -61,6 +86,18 @@ public class UI_SkillPopup : UI_Popup
         GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
         GetText((int)Texts.NickNameText).text = Managers.Game.Name;
         GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
+    }
+
+    void OnClickSkillListButton()
+    {
+        if (_skillSelected)
+        {
+            _skillSelected = false;
+            return;
+        }
+
+        _skillSelected = true;
+
     }
 
 

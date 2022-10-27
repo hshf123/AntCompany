@@ -24,6 +24,10 @@ public class Game_Manager
 
     public float ArrowSpeed { get; set; }
 
+    // TODO 몬스터 카운트는 어디서 받을지
+    public int MonsterCount { get; set; }
+    public List<MonsterController> Monsters = new List<MonsterController>();
+
     public void Init()
     {
         // TODO : 레벨에 맞춰서 데이터 로드
@@ -62,5 +66,10 @@ public class Game_Manager
         HP -= damage;
         if (HP <= 0)
             HP = 0;
+    }
+
+    public void OnSkill()
+    {
+        
     }
 }

@@ -25,7 +25,7 @@ public class UI_Stage1Popup : UI_StagePopup
             return false;
         }
 
-        MonsterCount = _stageData.MonsterCount;
+        Managers.Game.MonsterCount = _stageData.MonsterCount;
 
         CreateMonster();
         Managers.Sound.Play("Sound_Battle", Define.Sound.Bgm);
@@ -56,7 +56,7 @@ public class UI_Stage1Popup : UI_StagePopup
 
     void OnClickSkillButton1()
     {
-
+        Managers.Resource.Instantiate("Objects/Range", transform);
     }
     void OnClickSkillButton2()
     {

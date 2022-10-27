@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class UI_StagePopup : UI_Popup
 {
     public StageLevels StageLevel { get; protected set; } = StageLevels.None;
-    public int MonsterCount { get; protected set; }
-    public List<MonsterController> Monsters = new List<MonsterController>();
+    
     protected Stage _stageData;
 
     public enum StageLevels
@@ -47,11 +46,11 @@ public class UI_StagePopup : UI_Popup
 
     protected void CreateMonster()
     {
-        for(int i=0; i<MonsterCount; i++)
+        for(int i=0; i<Managers.Game.MonsterCount; i++)
         {
             GameObject monster = Managers.Resource.Instantiate("Objects/Monster", gameObject.transform);
             MonsterController mc = monster.GetComponent<MonsterController>();
-            Monsters.Add(mc);
+            Managers.Game.Monsters.Add(mc);
             mc.SetStage(gameObject);
         }
     }

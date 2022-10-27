@@ -36,18 +36,6 @@ public class DataManager
         return JsonUtility.FromJson<Loader>(json.text);
     }
 
-    public void SaveNewFile()
-    {
-        save.Name = Managers.Game.Name;
-        save.Level = Managers.Game.Level;
-        save.Exp = Managers.Game.Exp;
-        save.Money = Managers.Game.Money;
-
-        string path = Path.Combine(Application.persistentDataPath, "SaveData.json");
-        string json = JsonUtility.ToJson(save, true);
-        File.WriteAllText(path, json);
-    }
-
     public void SaveFile()
     {
         save.Name = Managers.Game.Name;

@@ -25,6 +25,7 @@ public class Define
         Pressed,
         PointerDown,
         PointerUp,
+        Drag,
     }
 
     public const int BlockHit = 4500;

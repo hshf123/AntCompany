@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     MonsterController _target;
     float _attackRange;
     float _checkTime = 0f;
-    float _coolTime = 1f;
     bool _canAttack = true;
 
     protected enum PlayerState
@@ -54,21 +53,21 @@ public class PlayerController : MonoBehaviour
         _checkTime += Time.deltaTime;
         FindMonster();
         if (_target != null && _canAttack)
-            AutoAttack();
+            AttackStart();
     }
 
     void FindMonster()
     {
         UI_StagePopup stage = _stage.GetComponent<UI_StagePopup>();
-        if (stage.Monsters.Count == 0)
+        if (Managers.Game.Monsters.Count == 0)
         {
             _target = null;
             State = PlayerState.IDLE;
             return;
         }
 
-        _target = stage.Monsters[0];
-        foreach (MonsterController mc in stage.Monsters)
+        _target = Managers.Game.Monsters[0];
+        foreach (MonsterController mc in Managers.Game.Monsters)
         {
             if (_target != null)
             {
@@ -83,9 +82,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void AutoAttack()
+    void AttackStart()
     {
-        if (_checkTime >= _coolTime)
+        if (_checkTime >= (1/Managers.Game.AttackSpeed))
         {
             GameObject arrow = Managers.Resource.Instantiate("Objects/Arrow", _stage.transform);
             arrow.transform.position = gameObject.transform.position;
