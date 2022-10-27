@@ -9,7 +9,7 @@ public class TestScene : BaseScene
         if (base.Init() == false)
             return false;
 
-        Managers.UI.ShowPopupUI<UI_Stage1Popup>();
+        Managers.UI.ShowPopupUI<UI_StagePopup>();
 
         return true;
     }
