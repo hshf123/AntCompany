@@ -63,7 +63,6 @@ public class UI_EquipmentPopup : UI_Popup
         GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
     }
 
-
     void OnClickSkillWindowButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
