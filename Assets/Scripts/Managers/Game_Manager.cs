@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Game_Manager
@@ -30,7 +31,6 @@ public class Game_Manager
 
     public void Init()
     {
-        // TODO : 레벨에 맞춰서 데이터 로드
         if(Managers.Data.PlayerDict.TryGetValue(1, out _playerData) == false)
         {
             Debug.Log("Failed to load player data");
@@ -42,23 +42,23 @@ public class Game_Manager
             return;
         }
 
-        DataSettings();
-    }
-
-    void Update()
-    {
-        // TODO
-    }
-
-    void DataSettings()
-    {
         Level = _playerData.Level;
+        MaxExp = 100;
+        Exp = 0;
+        Money = 100000;
         MaxHP = _playerData.MaxHp;
         HP = _playerData.Hp;
         Attack = _playerData.Attack;
         AttackSpeed = _playerData.AttackSpeed;
 
         ArrowSpeed = _arrowData.Speed;
+
+        SaveData();
+    }
+
+    void Update()
+    {
+        // TODO
     }
 
     public void OnDamaged(int damage)
@@ -71,5 +71,52 @@ public class Game_Manager
     public void OnSkill()
     {
         
+    }
+
+    void SaveData()
+    {
+        Save save = new Save();
+        save.Name = Name;
+        save.Level = Level;
+        save.Exp = Exp;
+        save.Money = Money;
+
+        // TODO : 스킬 정보 세이브
+
+        Managers.Data.Save(save);
+    }
+    public bool LoadData()
+    {
+        Save save;
+        if ((save = Managers.Data.LoadSaveData()) == null)
+            return false;
+
+        if (Managers.Data.PlayerDict.TryGetValue(1, out _playerData) == false)
+        {
+            Debug.Log("Failed to load player data");
+            return false;
+        }
+        if (Managers.Data.ArrowDict.TryGetValue(1, out _arrowData) == false)
+        {
+            Debug.Log("Failed to load arrow data");
+            return false;
+        }
+
+        MaxExp = 100;
+        MaxHP = _playerData.MaxHp;
+        HP = _playerData.Hp;
+        Attack = _playerData.Attack;
+        AttackSpeed = _playerData.AttackSpeed;
+
+        ArrowSpeed = _arrowData.Speed;
+
+        Name = save.Name;
+        Level = save.Level;
+        Exp = save.Exp;
+        Money = save.Money;
+
+        // TODO : 스킬 정보 세이브
+
+        return true;
     }
 }

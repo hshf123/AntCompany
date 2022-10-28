@@ -8,10 +8,6 @@ public class UI_StagePopup : UI_Popup
     public StageLevels StageLevel { get; set; } = StageLevels.None;
     
     Stage _stageData;
-    float _gameTime = 60f;
-    float _elapsedTime = 0f;
-    float _checkTime = 0f;
-    Coroutine _coSkillCoolTime;
     bool _isCoolDown = false;
 
     public enum StageLevels
@@ -26,10 +22,13 @@ public class UI_StagePopup : UI_Popup
     enum Images
     {
         SkillButtonIcon1,
-        ButtonCoolTime,
+        ButtonCoolTime1,
         SkillButtonIcon2,
+        ButtonCoolTime2,
         SkillButtonIcon3,
-        SkillButtonIcon4
+        ButtonCoolTime3,
+        SkillButtonIcon4,
+        ButtonCoolTime4
     }
 
     enum Buttons
@@ -65,18 +64,18 @@ public class UI_StagePopup : UI_Popup
         Get<Button>((int)Buttons.SkillButton1).gameObject.BindEvent(OnClickSkillButton1);
         Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.HP);
         GetText((int)Texts.HpText).text = Managers.Game.HP.ToString();
-        GetText((int)Texts.RemainingTimeText).text = _gameTime.ToString();
 
         if (Managers.Data.StageDict.TryGetValue((int)StageLevel, out _stageData) == false)
         {
             Debug.Log($"Failed to load {StageLevel} data");
             return false;
         }
-
         Managers.Game.MonsterCount = _stageData.MonsterCount;
+        // TODO : 스킬 정보 세팅
 
         CreateMonster();
         Managers.Sound.Play("Sound_Battle", Define.Sound.Bgm);
+        StartCoroutine(CheckGameTime());
 
         return true;
     }
@@ -94,19 +93,17 @@ public class UI_StagePopup : UI_Popup
         if (ratio <= 0.5f)
             GetText((int)Texts.HpText).color = Color.black;
         Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(ratio);
-        CheckGameTime();
     }
 
-    void CheckGameTime()
+    IEnumerator CheckGameTime()
     {
-        _checkTime += Time.deltaTime;
-        if (_checkTime > 1f)
+        int playTime = 60;
+        while(playTime >= 0)
         {
-            _gameTime -= 1f;
-            _elapsedTime += 1f;
-            _checkTime = 0f;
+            GetText((int)Texts.RemainingTimeText).text = playTime.ToString();
+            yield return new WaitForSeconds(1); 
+            playTime -= 1;
         }
-        GetText((int)Texts.RemainingTimeText).text = _gameTime.ToString();
     }
 
     protected void CreateMonster()
@@ -122,7 +119,6 @@ public class UI_StagePopup : UI_Popup
 
     void StageEnd()
     {
-        // TODO : 스테이지 종료
 
     }
 
@@ -132,7 +128,7 @@ public class UI_StagePopup : UI_Popup
         {
             _isCoolDown = true;
             Managers.Resource.Instantiate("Objects/Range", transform);
-            _coSkillCoolTime = StartCoroutine("CoSkillCoolTime", 8f);
+            StartCoroutine(CoSkillCoolTime(8f));
         }
     }
     void OnClickSkillButton2()
@@ -154,7 +150,7 @@ public class UI_StagePopup : UI_Popup
         
         while(seconds >= 0f)
         {
-            Get<Image>((int)Images.ButtonCoolTime).fillAmount = (seconds / coolTime);
+            Get<Image>((int)Images.ButtonCoolTime1).fillAmount = (seconds / coolTime);
             seconds -= Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }

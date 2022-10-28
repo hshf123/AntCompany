@@ -33,11 +33,12 @@ public class UI_InputNickNamePopup : UI_Popup
     void OnCheckButton()
     {
         Managers.Game.Name = GetText((int)Texts.ValueText).text;
-        Debug.Log($"닉네임 저장 : {Managers.Game.Name}");
+        Debug.Log($"닉네임 : {Managers.Game.Name}");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.CloseAllPopupUI();
         Managers.UI.ShowPopupUI<UI_GuidePopup>();
         Managers.Sound.Clear();
+        Managers.Game.Init();
     }
     void OnCancelButton()
     {

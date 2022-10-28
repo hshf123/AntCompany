@@ -14,8 +14,6 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
-    public Save save = new Save();
-
     public Dictionary<int, Monster> MonsterDict { get; private set; } = new Dictionary<int, Monster>();
     public Dictionary<int, Player> PlayerDict { get; private set; } = new Dictionary<int, Player>();
     public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
@@ -36,28 +34,26 @@ public class DataManager
         return JsonUtility.FromJson<Loader>(json.text);
     }
 
-    public void SaveFile()
+    public void Save(Save save)
     {
-        save.Name = Managers.Game.Name;
-        save.Level = Managers.Game.Level;
-        save.Exp = Managers.Game.Exp;
-        save.Money = Managers.Game.Money;
-
         string path = Path.Combine(Application.persistentDataPath, "SaveData.json");
         string json = JsonUtility.ToJson(save, true);
         File.WriteAllText(path, json);
+        Debug.Log($"Save : {Application.persistentDataPath} SaveData.json");
     }
 
-    void SaveDataLoad()
+    public Save LoadSaveData()
     {
-        TextAsset json = Managers.Resource.Load<TextAsset>(Path.Combine(Application.persistentDataPath, "SaveData.json"));
-        if(json == null)
+        string path = Application.persistentDataPath + "/SaveData.json";
+        if (File.Exists(path) == false)
         {
             Debug.Log("Failed to load save data");
-            return;
+            return null;
         }
 
-        save = JsonUtility.FromJson<Save>(json.text);
+        string fileStr = File.ReadAllText(path);
+
+        return JsonUtility.FromJson<Save>(fileStr);
     }
 
     //void ReadXMLData()

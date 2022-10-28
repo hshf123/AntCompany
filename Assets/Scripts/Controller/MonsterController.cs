@@ -153,7 +153,8 @@ public class MonsterController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        InSkillRange = true;
+        if (collision.GetComponent<RangeController>() != null)
+            InSkillRange = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
