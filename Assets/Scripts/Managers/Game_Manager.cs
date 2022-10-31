@@ -82,11 +82,6 @@ public class Game_Manager
         LoadData();
     }
 
-    public void OnSkill()
-    {
-        
-    }
-
     public void Save()
     {
         Save save = new Save();
