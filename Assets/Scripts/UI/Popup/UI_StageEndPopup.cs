@@ -79,6 +79,7 @@ public class UI_StageEndPopup : UI_Popup
     {
         Debug.Log("Victory");
         Managers.Game.AddExp(150);
+        Managers.Game.Money += 5000;
     }
     void Defeat()
     {

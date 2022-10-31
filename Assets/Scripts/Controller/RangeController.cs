@@ -21,7 +21,6 @@ public class RangeController : MonoBehaviour
 
     void StartSkill()
     {
-        Debug.Log("Skill start");
         for(int i=0; i<Managers.Game.Monsters.Count; i++)
         {
             MonsterController mc = Managers.Game.Monsters[i];
