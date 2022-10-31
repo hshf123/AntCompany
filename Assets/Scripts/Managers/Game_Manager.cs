@@ -67,6 +67,13 @@ public class Game_Manager
         if (HP <= 0)
             HP = 0;
     }
+    public void AddExp(float exp)
+    {
+        Exp += exp;
+        if (MaxExp >= Exp)
+            Level += 1;
+        // TODO : 경험치 관련 수정
+    }
 
     public void OnSkill()
     {

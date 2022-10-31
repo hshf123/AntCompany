@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class UI_StagePopup : UI_Popup
 {
     public StageLevels StageLevel { get; set; } = StageLevels.None;
-    
+
     Stage _stageData;
     bool _isCoolDown = false;
+    bool _isEnd = false;
 
     public enum StageLevels
     {
@@ -82,6 +83,12 @@ public class UI_StagePopup : UI_Popup
 
     void Update()
     {
+        UpdateHp();
+        UpdateMonsterCount();
+    }
+
+    void UpdateHp()
+    {
         int hp = Managers.Game.HP;
         if (hp <= 0)
         {
@@ -94,21 +101,28 @@ public class UI_StagePopup : UI_Popup
             GetText((int)Texts.HpText).color = Color.black;
         Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(ratio);
     }
+    void UpdateMonsterCount()
+    {
+        if (Managers.Game.Monsters.Count == 0)
+            StageEnd();
+    }
 
     IEnumerator CheckGameTime()
     {
         int playTime = 60;
-        while(playTime >= 0)
+        while (playTime >= 0)
         {
             GetText((int)Texts.RemainingTimeText).text = playTime.ToString();
-            yield return new WaitForSeconds(1); 
+            yield return new WaitForSeconds(1);
             playTime -= 1;
         }
+        if (playTime == 0)
+            Managers.Game.OnDamaged(999999);
     }
 
     protected void CreateMonster()
     {
-        for(int i=0; i<Managers.Game.MonsterCount; i++)
+        for (int i = 0; i < Managers.Game.MonsterCount; i++)
         {
             GameObject monster = Managers.Resource.Instantiate("Objects/Monster", gameObject.transform);
             MonsterController mc = monster.GetComponent<MonsterController>();
@@ -119,12 +133,16 @@ public class UI_StagePopup : UI_Popup
 
     void StageEnd()
     {
-
+        if (_isEnd == true)
+            return;
+        Debug.Log($"Stage End");
+        Managers.UI.ShowPopupUI<UI_StageEndPopup>();
+        _isEnd = true;
     }
 
     void OnClickSkillButton1()
     {
-        if(_isCoolDown == false)
+        if (_isCoolDown == false)
         {
             _isCoolDown = true;
             Managers.Resource.Instantiate("Objects/Range", transform);
@@ -147,8 +165,8 @@ public class UI_StagePopup : UI_Popup
     IEnumerator CoSkillCoolTime(float seconds)
     {
         float coolTime = seconds;
-        
-        while(seconds >= 0f)
+
+        while (seconds >= 0f)
         {
             Get<Image>((int)Images.ButtonCoolTime1).fillAmount = (seconds / coolTime);
             seconds -= Time.deltaTime;
