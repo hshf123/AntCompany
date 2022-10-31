@@ -105,14 +105,20 @@ public class UI_PlayPopup : UI_Popup
     void OnClickStage2InitButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_StagePopup>().StageLevel = UI_StagePopup.StageLevels.Stage2;
     }
     void OnClickStage3InitButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_StagePopup>().StageLevel = UI_StagePopup.StageLevels.Stage3;
     }
     void OnClickStage4InitButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_StagePopup>().StageLevel = UI_StagePopup.StageLevels.Stage4;
     }
 #endregion
 }

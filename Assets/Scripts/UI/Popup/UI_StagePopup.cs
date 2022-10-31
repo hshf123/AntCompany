@@ -56,8 +56,6 @@ public class UI_StagePopup : UI_Popup
         if (base.Init() == false)
             return false;
 
-        StageLevel = StageLevels.Stage1;
-
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
         Bind<GameObject>(typeof(GameObjects));
