@@ -72,7 +72,10 @@ public class Game_Manager
         Exp += exp;
         if (MaxExp <= Exp)
         {
+            // TODO
             Level += 1;
+            if (Level >= 5)
+                Level = 5;
             Exp -= MaxExp;
         }
         Save();
