@@ -28,10 +28,11 @@ public class Game_Manager
     // TODO 몬스터 카운트는 어디서 받을지
     public int MonsterCount { get; set; }
     public List<MonsterController> Monsters = new List<MonsterController>();
+    public BossController Boss;
 
     public void Init()
     {
-        if(Managers.Data.PlayerDict.TryGetValue(1, out _playerData) == false)
+        if (Managers.Data.PlayerDict.TryGetValue(1, out _playerData) == false)
         {
             Debug.Log("Failed to load player data");
             return;

@@ -75,6 +75,8 @@ public class UI_PlayPopup : UI_Popup
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Debug.Log("OnClickBossButton");
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_BossStagePopup>();
     }
 
     void OnClickSkillWindowButton()
@@ -95,7 +97,7 @@ public class UI_PlayPopup : UI_Popup
         Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
     }
 
-#region 스테이지
+    #region 스테이지
     void OnClickStage1InitButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
@@ -120,5 +122,5 @@ public class UI_PlayPopup : UI_Popup
         Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_StagePopup>().StageLevel = UI_StagePopup.StageLevels.Stage4;
     }
-#endregion
+    #endregion
 }

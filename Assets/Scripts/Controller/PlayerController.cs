@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     Animator _animator;
     GameObject _stage;
     MonsterController _target;
+    BossController _bossTarget;
     float _attackRange;
     float _checkTime = 0f;
     bool _canAttack = true;
@@ -52,17 +53,21 @@ public class PlayerController : MonoBehaviour
     {
         _checkTime += Time.deltaTime;
         FindMonster();
+        FindBoss();
         if (_target != null && _canAttack)
             AttackStart();
+        if (_bossTarget != null && _canAttack)
+            AttackStart();
+
+        if (_target == null && _bossTarget == null)
+            State = PlayerState.IDLE;
     }
 
     void FindMonster()
     {
-        UI_StagePopup stage = _stage.GetComponent<UI_StagePopup>();
         if (Managers.Game.Monsters.Count == 0)
         {
             _target = null;
-            State = PlayerState.IDLE;
             return;
         }
 
@@ -81,15 +86,31 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    void FindBoss()
+    {
+        if (Managers.Game.Boss == null)
+        {
+            _bossTarget = null;
+            return;
+        }
+
+        _bossTarget = Managers.Game.Boss;
+
+        if (_bossTarget.transform.position.y > _attackRange)
+            _bossTarget = null;
+    }
 
     void AttackStart()
     {
-        if (_checkTime >= (1/Managers.Game.AttackSpeed))
+        if (_checkTime >= (1 / Managers.Game.AttackSpeed))
         {
             GameObject arrow = Managers.Resource.Instantiate("Objects/Arrow", _stage.transform);
             arrow.transform.position = gameObject.transform.position;
             _checkTime = 0;
-            arrow.GetComponent<ArrowController>().SetTarget(_target.transform.position);
+            if (_target != null)
+                arrow.GetComponent<ArrowController>().SetTarget(_target.transform.position);
+            if (_bossTarget != null)
+                arrow.GetComponent<ArrowController>().SetTarget(_bossTarget.transform.position);
             State = PlayerState.Attack;
             Managers.Sound.Play("Sound_AttackButton");
         }

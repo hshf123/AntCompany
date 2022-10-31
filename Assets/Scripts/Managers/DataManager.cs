@@ -14,17 +14,19 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
+    public Dictionary<int, Arrow> ArrowDict { get; private set; } = new Dictionary<int, Arrow>();
+    public Dictionary<int, Boss> BossDict { get; private set; } = new Dictionary<int, Boss>();
     public Dictionary<int, Monster> MonsterDict { get; private set; } = new Dictionary<int, Monster>();
     public Dictionary<int, Player> PlayerDict { get; private set; } = new Dictionary<int, Player>();
     public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
-    public Dictionary<int, Arrow> ArrowDict { get; private set; } = new Dictionary<int, Arrow>();
 
     public void Init()
     {
+        ArrowDict = LoadJson<ArrowData, int, Arrow>("ArrowData").MakeDict();
+        BossDict = LoadJson<BossData, int, Boss>("BossData").MakeDict();
         MonsterDict = LoadJson<MonsterData, int, Monster>("MonsterData").MakeDict();
         PlayerDict = LoadJson<PlayerData, int, Player>("PlayerData").MakeDict();
         StageDict = LoadJson<StageData, int, Stage>("StageData").MakeDict();
-        ArrowDict = LoadJson<ArrowData, int, Arrow>("ArrowData").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

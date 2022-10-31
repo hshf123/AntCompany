@@ -54,9 +54,16 @@ public class ArrowController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         MonsterController mc = collision.GetComponent<MonsterController>();
-        if (mc == null)
+        BossController bc = collision.GetComponent<BossController>();
+
+        if (mc == null && bc == null)
             return;
+
         Managers.Resource.Destroy(gameObject);
-        mc.OnDamaged(Managers.Game.Attack);
+
+        if (mc != null)
+            mc.OnDamaged(Managers.Game.Attack);
+        if (bc != null)
+            bc.OnDamaged(Managers.Game.Attack);
     }
 }

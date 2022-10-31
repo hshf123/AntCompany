@@ -1,12 +1,13 @@
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour
+public class BossController : MonoBehaviour
 {
-    Monster monsterData;
+    Boss _bossData;
     int _maxHp;
-    int _hp;
+    public int Hp { get; private set; }
     int _attack;
     float _speed;
 
@@ -26,17 +27,17 @@ public class MonsterController : MonoBehaviour
             _transform.anchoredPosition = value;
         }
     }
-    Animator _animator;
-    UI_StagePopup _stage;
+    SkeletonGraphic _animator;
+    UI_BossStagePopup _stage;
     HpBar _hpBar;
 
-    protected enum MonsterState
+    protected enum BossState
     {
         Move,
         Attack,
     }
-    MonsterState _state;
-    protected MonsterState State
+    BossState _state;
+    protected BossState State
     {
         get { return _state; }
         set
@@ -46,11 +47,11 @@ public class MonsterController : MonoBehaviour
 
             switch (value)
             {
-                case MonsterState.Move:
-                    _animator.Play("Monster_Walk");
+                case BossState.Move:
+                    PlayAnimation("walk");
                     break;
-                case MonsterState.Attack:
-                    _animator.Play("Monster_Attack");
+                case BossState.Attack:
+                    PlayAnimation("attack");
                     break;
             }
 
@@ -61,24 +62,26 @@ public class MonsterController : MonoBehaviour
     void Start()
     {
         _transform = GetComponent<RectTransform>();
-        _animator = GetComponent<Animator>();
-        _animator.Play("Monster_Walk");
+        _animator = GetComponent<SkeletonGraphic>();
+        PlayAnimation("walk");
         SetRandPosition();
-        State = MonsterState.Move;
+        State = BossState.Move;
         _hpBar = Utils.FindChild(gameObject, "HP").gameObject.GetComponent<HpBar>();
         if (_hpBar == null)
             Debug.Log("Failed to find HPBar");
 
-        if (Managers.Data.MonsterDict.TryGetValue((int)_stage.StageLevel, out monsterData) == false)
+        if (Managers.Data.BossDict.TryGetValue(1, out _bossData) == false)
         {
-            Debug.Log("Failed to load monster data");
+            Debug.Log("Failed to load boss data");
             return;
         }
 
-        _maxHp = monsterData.MaxHp;
-        _hp = monsterData.Hp;
-        _attack = monsterData.Attack;
-        _speed = monsterData.Speed;
+        _maxHp = _bossData.MaxHp;
+        Hp = _bossData.Hp;
+        _attack = _bossData.Attack;
+        _speed = _bossData.Speed;
+
+        Managers.Game.Boss = this;
     }
 
     void Update()
@@ -93,21 +96,27 @@ public class MonsterController : MonoBehaviour
         UpdateAnim();
     }
 
+    public void PlayAnimation(string name, bool loop = true)
+    {
+        _animator.startingAnimation = name;
+        _animator.startingLoop = loop;
+    }
+
     void SetRandPosition()
     {
         float xRange = gameObject.transform.parent.GetComponent<RectTransform>().rect.width / 2;
         float yRange = 200;
-        float x = Random.Range(-xRange + 30, xRange - 30);
+        float x = Random.Range(-xRange + 40, xRange - 40);
         float y = Random.Range(2000, 2000 + yRange + 1);
         Position = new Vector3(x, y);
     }
 
     void UpdateAnim()
     {
-        if (Position.y <= -426f)
+        if (Position.y <= -515f)
         {
-            State = MonsterState.Attack;
-            Position = new Vector2(Position.x, -426f);
+            State = BossState.Attack;
+            Position = new Vector2(Position.x, -515f);
             if (_canAttack)
             {
                 Managers.Game.OnDamaged(_attack);
@@ -116,28 +125,28 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            State = MonsterState.Move;
+            State = BossState.Move;
             Position += new Vector2(0, -1f) * Time.deltaTime * _speed;
         }
     }
 
     public void OnDamaged(int damage)
     {
-        _hp -= damage;
-        if (_hp <= 0)
-            _hp = 0;
+        Hp -= damage;
+        if (Hp <= 0)
+            Hp = 0;
 
-        float ratio = (float)_hp / _maxHp;
+        float ratio = (float)Hp / _maxHp;
         _hpBar.SetHpBar(ratio);
         Managers.Sound.Play("Sound_PlayerAttacked");
 
-        if (_hp == 0 && gameObject != null)
+        if (Hp == 0 && gameObject != null)
             OnDead();
     }
 
     public void SetStage(GameObject stage)
     {
-        UI_StagePopup sp = stage.GetComponent<UI_StagePopup>();
+        UI_BossStagePopup sp = stage.GetComponent<UI_BossStagePopup>();
         if (sp == null)
             return;
 
@@ -147,7 +156,7 @@ public class MonsterController : MonoBehaviour
     void OnDead()
     {
         Managers.Resource.Destroy(gameObject);
-        Managers.Game.Monsters.Remove(gameObject.GetComponent<MonsterController>());
+        //Managers.Game.Monsters.Remove(gameObject.GetComponent<MonsterController>());
         // TODO : º“∏Í ¿Ã∆Â∆Æ
     }
 

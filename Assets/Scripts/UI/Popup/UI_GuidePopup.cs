@@ -32,7 +32,7 @@ public class UI_GuidePopup : UI_Popup
         BindText(typeof(Texts));
         gameObject.BindEvent(OnClickImage);
 
-        for(int i=_currentPage+1; i<_lastPage; i++)
+        for (int i = _currentPage + 1; i < _lastPage; i++)
         {
             Get<GameObject>(i).SetActive(false);
         }
@@ -54,7 +54,7 @@ public class UI_GuidePopup : UI_Popup
 
         Get<GameObject>(_currentPage).SetActive(true);
 
-        switch(_currentPage)
+        switch (_currentPage)
         {
             case (int)GameObjects.Intro2:
                 GetText((int)Texts.GuideText).text = "첫 회사는 설레! 너무 행복한 것 같아 \n 열심히 회사를 다녀서 부자가 될 거야!";
