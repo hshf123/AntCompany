@@ -78,7 +78,7 @@ public class UI_StageEndPopup : UI_Popup
     void Victory()
     {
         Debug.Log("Victory");
-        Managers.Game.AddExp(10);
+        Managers.Game.AddExp(150);
     }
     void Defeat()
     {
@@ -111,6 +111,7 @@ public class UI_StageEndPopup : UI_Popup
         GetText((int)Texts.AttackAfterText).text = Managers.Game.Attack.ToString();
         GetText((int)Texts.AttackSpeedAfterText).text = Managers.Game.AttackSpeed.ToString();
         #endregion
+        Managers.Game.Save();
     }
 
     void OnClickCheckButton()

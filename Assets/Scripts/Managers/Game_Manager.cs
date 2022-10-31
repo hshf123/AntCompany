@@ -53,7 +53,7 @@ public class Game_Manager
 
         ArrowSpeed = _arrowData.Speed;
 
-        SaveData();
+        Save();
     }
 
     void Update()
@@ -70,9 +70,13 @@ public class Game_Manager
     public void AddExp(float exp)
     {
         Exp += exp;
-        if (MaxExp >= Exp)
+        if (MaxExp <= Exp)
+        {
             Level += 1;
-        // TODO : 경험치 관련 수정
+            Exp -= MaxExp;
+        }
+        Save();
+        LoadData();
     }
 
     public void OnSkill()
@@ -80,12 +84,17 @@ public class Game_Manager
         
     }
 
-    void SaveData()
+    public void Save()
     {
         Save save = new Save();
         save.Name = Name;
         save.Level = Level;
+        save.MaxExp = MaxExp;
         save.Exp = Exp;
+        save.MaxHp = MaxHP;
+        save.Hp = HP;
+        save.Attack = Attack;
+        save.AttackSpeed = AttackSpeed;
         save.Money = Money;
 
         // TODO : 스킬 정보 세이브
@@ -98,7 +107,9 @@ public class Game_Manager
         if ((save = Managers.Data.LoadSaveData()) == null)
             return false;
 
-        if (Managers.Data.PlayerDict.TryGetValue(1, out _playerData) == false)
+        int level = save.Level;
+
+        if (Managers.Data.PlayerDict.TryGetValue(level, out _playerData) == false)
         {
             Debug.Log("Failed to load player data");
             return false;
