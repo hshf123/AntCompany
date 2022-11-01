@@ -49,9 +49,11 @@ public class BossController : MonoBehaviour
             {
                 case BossState.Move:
                     PlayAnimation("walk");
+                    ChangeSkin("main");
                     break;
                 case BossState.Attack:
                     PlayAnimation("attack");
+                    ChangeSkin("attack");
                     break;
             }
 
@@ -64,6 +66,7 @@ public class BossController : MonoBehaviour
         _transform = GetComponent<RectTransform>();
         _animator = GetComponent<SkeletonGraphic>();
         PlayAnimation("walk");
+        ChangeSkin("main");
         SetRandPosition();
         State = BossState.Move;
         _hpBar = Utils.FindChild(gameObject, "HP").gameObject.GetComponent<HpBar>();
@@ -100,6 +103,12 @@ public class BossController : MonoBehaviour
     {
         _animator.startingAnimation = name;
         _animator.startingLoop = loop;
+    }
+
+    public void ChangeSkin(string name)
+    {
+        _animator.initialSkinName = name;
+        _animator.Initialize(true);
     }
 
     void SetRandPosition()
