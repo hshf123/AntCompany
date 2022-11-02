@@ -18,22 +18,6 @@ public class UI_EquipmentPopup : UI_Popup
         EquipmentButton2,
         EquipmentButton3,
         EquipmentButton4,
-        EquipmentListButton1,
-        EquipmentListButton2,
-        EquipmentListButton3,
-        EquipmentListButton4,
-        EquipmentListButton5,
-        EquipmentListButton6,
-        EquipmentListButton7,
-        EquipmentListButton8,
-        EquipmentListButton9,
-        EquipmentListButton10,
-        EquipmentListButton11,
-        EquipmentListButton12,
-        EquipmentListButton13,
-        EquipmentListButton14,
-        EquipmentListButton15,
-        EquipmentListButton16,
         SkillWindowButton,
         StageAndBossButton,
         EquipmentWindowButton,
@@ -61,6 +45,10 @@ public class UI_EquipmentPopup : UI_Popup
         GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
         GetText((int)Texts.NickNameText).text = Managers.Game.Name;
         GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
+
+        GameObject go = Utils.FindChild(gameObject, "EquipmentList");
+        for (int i = 0; i < 16; i++)
+            Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", go.transform).gameObject.BindEvent(() => { Debug.Log("Click"); });
     }
 
     void OnClickSkillWindowButton()
