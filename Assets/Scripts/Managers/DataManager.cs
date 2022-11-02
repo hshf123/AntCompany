@@ -16,6 +16,7 @@ public class DataManager
 {
     public Dictionary<int, Arrow> ArrowDict { get; private set; } = new Dictionary<int, Arrow>();
     public Dictionary<int, Boss> BossDict { get; private set; } = new Dictionary<int, Boss>();
+    public BowData BowData { get; set; } = new BowData();
     public Dictionary<int, Monster> MonsterDict { get; private set; } = new Dictionary<int, Monster>();
     public Dictionary<int, Player> PlayerDict { get; private set; } = new Dictionary<int, Player>();
     public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
@@ -24,6 +25,7 @@ public class DataManager
     {
         ArrowDict = LoadJson<ArrowData, int, Arrow>("ArrowData").MakeDict();
         BossDict = LoadJson<BossData, int, Boss>("BossData").MakeDict();
+        BowData = LoadJson<BowData>("BowData");
         MonsterDict = LoadJson<MonsterData, int, Monster>("MonsterData").MakeDict();
         PlayerDict = LoadJson<PlayerData, int, Player>("PlayerData").MakeDict();
         StageDict = LoadJson<StageData, int, Stage>("StageData").MakeDict();
@@ -32,19 +34,22 @@ public class DataManager
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
         TextAsset json = Managers.Resource.Load<TextAsset>($"Data/{path}");
-        Debug.Log(json.text);
+        return JsonUtility.FromJson<Loader>(json.text);
+    }
+    Loader LoadJson<Loader>(string path)
+    {
+        TextAsset json = Managers.Resource.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(json.text);
     }
 
-    public void Save(Save save)
+    public void Save(SaveData save)
     {
         string path = Path.Combine(Application.persistentDataPath, "SaveData.json");
         string json = JsonUtility.ToJson(save, true);
         File.WriteAllText(path, json);
         Debug.Log($"Save : {Application.persistentDataPath} SaveData.json");
     }
-
-    public Save LoadSaveData()
+    public SaveData LoadSaveData()
     {
         string path = Application.persistentDataPath + "/SaveData.json";
         if (File.Exists(path) == false)
@@ -55,32 +60,6 @@ public class DataManager
 
         string fileStr = File.ReadAllText(path);
 
-        return JsonUtility.FromJson<Save>(fileStr);
+        return JsonUtility.FromJson<SaveData>(fileStr);
     }
-
-    //void ReadXMLData()
-    //{
-    //    XmlReaderSettings xmlReaderSettings = new XmlReaderSettings()
-    //    {
-    //        IgnoreComments = true,      // 주석 무시
-    //        IgnoreWhitespace = true     // 공백 무시
-    //    };
-
-    //    using (XmlReader r = XmlReader.Create("Assets/Resources/Data/StartData.xml", xmlReaderSettings))
-    //    {
-    //        // 원래 r.Dispose()를 해서 닫아줘야 하는데 using을 사용하면 Dispose를 자동으로 해준다.
-    //        r.MoveToContent();
-    //        while (r.Read())
-    //        {
-    //            if (r.Depth == 1 && r.NodeType == XmlNodeType.Element)
-    //            {
-    //                for (int i = 0; i < r.AttributeCount; i++)
-    //                {
-    //                    //Debug.Log($"{r.GetAttribute(i)}");
-    //                }
-    //            }
-    //        }
-    //    }
-
-    //}
 }

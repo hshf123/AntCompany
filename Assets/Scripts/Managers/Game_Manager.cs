@@ -85,7 +85,7 @@ public class Game_Manager
 
     public void Save()
     {
-        Save save = new Save();
+        SaveData save = new SaveData();
         save.Name = Name;
         save.Level = Level;
         save.MaxExp = MaxExp;
@@ -102,7 +102,7 @@ public class Game_Manager
     }
     public bool LoadData()
     {
-        Save save;
+        SaveData save;
         if ((save = Managers.Data.LoadSaveData()) == null)
             return false;
 
