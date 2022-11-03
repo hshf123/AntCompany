@@ -5,22 +5,10 @@ using UnityEngine.UI;
 
 public class UI_EquipmentPopup : UI_Popup
 {
-    enum Texts
-    {
-        LevelText,
-        NickNameText,
-        MoneyText,
-    }
-
     enum Buttons
     {
-        EquipmentButton1,
-        EquipmentButton2,
-        EquipmentButton3,
-        EquipmentButton4,
-        SkillWindowButton,
-        StageAndBossButton,
-        EquipmentWindowButton,
+        CheckButton,
+        CancelButton,
     }
 
     public override bool Init()
@@ -29,43 +17,20 @@ public class UI_EquipmentPopup : UI_Popup
             return false;
 
         Bind<Button>(typeof(Buttons));
-        BindText(typeof(Texts));
 
-        Get<Button>((int)Buttons.SkillWindowButton).gameObject.BindEvent(OnClickSkillWindowButton);
-        Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
-        Get<Button>((int)Buttons.EquipmentWindowButton).gameObject.BindEvent(OnClickEquipmentWindowButton);
-
-        RefreshUI();
+        Get<Button>((int)Buttons.CheckButton).gameObject.BindEvent(OnClickCheckButton);
+        Get<Button>((int)Buttons.CancelButton).gameObject.BindEvent(OnClickCancelButton);
 
         return true;
     }
-
-    void RefreshUI()
+    
+    void OnClickCheckButton()
     {
-        GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
-        GetText((int)Texts.NickNameText).text = Managers.Game.Name;
-        GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
-
-        GameObject go = Utils.FindChild(gameObject, "EquipmentList");
-        for (int i = 0; i < 16; i++)
-            Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", go.transform).gameObject.BindEvent(() => { Debug.Log("Click"); });
+        // TODO ¿Â∫Ò ¿Â¬¯
     }
-
-    void OnClickSkillWindowButton()
+    void OnClickCancelButton()
     {
-        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.ClosePopupUI();
-        Managers.UI.ShowPopupUI<UI_SkillPopup>();
     }
-    void OnClickStageAndBossButton()
-    {
-        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-        Managers.UI.ClosePopupUI();
-        Managers.UI.ShowPopupUI<UI_PlayPopup>();
-    }
-    void OnClickEquipmentWindowButton()
-    {
-        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-        Debug.Log("OnClickEquipmentWindowButton");
-    }
+
 }

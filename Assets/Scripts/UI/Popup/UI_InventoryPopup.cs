@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_SkillPopup : UI_Popup
+public class UI_InventoryPopup : UI_Popup
 {
-    bool _skillSelected = false;
+    List<GameObject> _buttons = new List<GameObject>();
 
     enum Texts
     {
@@ -16,26 +16,10 @@ public class UI_SkillPopup : UI_Popup
 
     enum Buttons
     {
-        SkillButton1,
-        SkillButton2,
-        SkillButton3,
-        SkillButton4,
-        SkillListButton1,
-        SkillListButton2,
-        SkillListButton3,
-        SkillListButton4,
-        SkillListButton5,
-        SkillListButton6,
-        SkillListButton7,
-        SkillListButton8,
-        SkillListButton9,
-        SkillListButton10,
-        SkillListButton11,
-        SkillListButton12,
-        SkillListButton13,
-        SkillListButton14,
-        SkillListButton15,
-        SkillListButton16,
+        EquipmentButton1,
+        EquipmentButton2,
+        EquipmentButton3,
+        EquipmentButton4,
         SkillWindowButton,
         StageAndBossButton,
         InventoryWindowButton,
@@ -53,8 +37,6 @@ public class UI_SkillPopup : UI_Popup
         Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
         Get<Button>((int)Buttons.InventoryWindowButton).gameObject.BindEvent(OnClickInventoryWindowButton);
 
-        Get<Button>((int)Buttons.SkillListButton1).gameObject.BindEvent(OnClickSkillListButton);
-
         RefreshUI();
 
         return true;
@@ -65,25 +47,36 @@ public class UI_SkillPopup : UI_Popup
         GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
         GetText((int)Texts.NickNameText).text = Managers.Game.Name;
         GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
-    }
 
-    void OnClickSkillListButton()
-    {
-        if (_skillSelected)
+        GameObject go = Utils.FindChild(gameObject, "EquipmentList");
+        for (int i = 0; i < 16; i++)
         {
-            _skillSelected = false;
-            return;
+            GameObject button = Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", go.transform).gameObject;
+            button.FindChild("EquipmentButtonIcon").SetActive(false);
+            _buttons.Add(button);
         }
 
-        _skillSelected = true;
+        int equipmentCount = 0;
+        foreach (BowData bow in Managers.Inven.Items.Values)
+        {
+            GameObject icon = _buttons[equipmentCount].FindChild("EquipmentButtonIcon");
+            icon.SetActive(true);
+            // TODO : 장비 선택
+            _buttons[equipmentCount].BindEvent(() => { Managers.UI.ShowPopupUI<UI_EquipmentPopup>(); Debug.Log("Click"); });
+            Image image = icon.GetComponent<Image>();
 
+            // TODO : 아이콘 경로는 데이터에 저장
+            image.sprite = Managers.Resource.Load<Sprite>("Sprites/Popup3/fire_01");
+
+            equipmentCount++;
+        }
     }
-
 
     void OnClickSkillWindowButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-        Debug.Log("OnClickSkillWindowButton");
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_SkillPopup>();
     }
     void OnClickStageAndBossButton()
     {
@@ -94,7 +87,6 @@ public class UI_SkillPopup : UI_Popup
     void OnClickInventoryWindowButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
-        Managers.UI.ClosePopupUI();
-        Managers.UI.ShowPopupUI<UI_InventoryPopup>();
+        Debug.Log("OnClickInventoryWindowButton");
     }
 }

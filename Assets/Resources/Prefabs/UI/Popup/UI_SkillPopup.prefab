@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 2056060467147230633}
   - component: {fileID: 4616401557938916798}
   m_Layer: 5
-  m_Name: EquipmentWindowButtonIcon
+  m_Name: InventoryWindowButtonIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5305,7 +5305,7 @@ GameObject:
   - component: {fileID: 2292833772093746445}
   - component: {fileID: 128113499535983457}
   m_Layer: 5
-  m_Name: EquipmentWindowButton
+  m_Name: InventoryWindowButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

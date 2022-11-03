@@ -24,7 +24,7 @@ public class UI_PlayPopup : UI_Popup
         BossButton,
         SkillWindowButton,
         StageAndBossButton,
-        EquipmentWindowButton,
+        InventoryWindowButton,
         StageButton1,
         StageButton2,
         StageButton3,
@@ -44,7 +44,7 @@ public class UI_PlayPopup : UI_Popup
         Get<Button>((int)Buttons.BossButton).gameObject.BindEvent(OnClickBossButton);
         Get<Button>((int)Buttons.SkillWindowButton).gameObject.BindEvent(OnClickSkillWindowButton);
         Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
-        Get<Button>((int)Buttons.EquipmentWindowButton).gameObject.BindEvent(OnClickEquipmentWindowButton);
+        Get<Button>((int)Buttons.InventoryWindowButton).gameObject.BindEvent(OnClickInventoryWindowButton);
         Get<Button>((int)Buttons.StageButton1).gameObject.BindEvent(OnClickStage1InitButton);
         Get<Button>((int)Buttons.StageButton2).gameObject.BindEvent(OnClickStage2InitButton);
         Get<Button>((int)Buttons.StageButton3).gameObject.BindEvent(OnClickStage3InitButton);
@@ -90,11 +90,11 @@ public class UI_PlayPopup : UI_Popup
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Debug.Log("OnClickStageAndBossButton");
     }
-    void OnClickEquipmentWindowButton()
+    void OnClickInventoryWindowButton()
     {
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.ClosePopupUI();
-        Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
+        Managers.UI.ShowPopupUI<UI_InventoryPopup>();
     }
 
     #region 스테이지
