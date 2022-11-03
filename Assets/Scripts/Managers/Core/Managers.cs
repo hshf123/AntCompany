@@ -9,23 +9,30 @@ public class Managers : MonoBehaviour
 {
     static Managers s_Instance;
     static Managers Instance { get { Init(); return s_Instance; } }
-
-    DataManager _data = new DataManager();
-    Game_Manager _game = new Game_Manager();
+    #region Core
     PoolManager _pool = new PoolManager();
     ResourceManager _resource = new ResourceManager();
-    SoundManager _sound = new SoundManager();
     Scene_Manager _scene = new Scene_Manager();
+    SoundManager _sound = new SoundManager();
     UIManager _ui = new UIManager();
 
-    public static DataManager Data { get { return Instance._data; } }
-    public static Game_Manager Game { get { return Instance._game; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SoundManager Sound { get { return Instance._sound; } }
     public static Scene_Manager Scene { get { return Instance._scene; } }
     public static UIManager UI { get { return Instance._ui; } }
+    #endregion
+    #region Contents
+    DataManager _data = new DataManager();
+    Game_Manager _game = new Game_Manager();
+    InventoryManager _inven = new InventoryManager();
+    ObjectManager _object = new ObjectManager();
 
+    public static DataManager Data { get { return Instance._data; } }
+    public static Game_Manager Game { get { return Instance._game; } }
+    public static InventoryManager Inven { get { return Instance._inven; } }
+    public static ObjectManager Object { get { return Instance._object; } }
+    #endregion
     void Start()
     {
         Init();
