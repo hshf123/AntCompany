@@ -17,6 +17,9 @@ public class Game_Manager
 
     // TODO : 스킬정보
 
+    // TODO : 장비 정보
+    public Dictionary<int, GameObject> Equipment { get; private set; } = new Dictionary<int, GameObject>();
+
     // in Game
     public int MaxHP { get; private set; }
     public int HP { get; private set; }
@@ -25,7 +28,6 @@ public class Game_Manager
 
     public float ArrowSpeed { get; set; }
 
-    // TODO 몬스터 카운트는 어디서 받을지
     public int MonsterCount { get; set; }
     public List<MonsterController> Monsters = new List<MonsterController>();
     public BossController Boss;
@@ -81,6 +83,11 @@ public class Game_Manager
         }
         Save();
         LoadData();
+    }
+
+    public void SelectEquipment(GameObject gameObject)
+    {
+        // TODO 해당 장비를 스텟에 적용
     }
 
     public void Save()

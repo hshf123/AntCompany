@@ -131,7 +131,7 @@ public class UI_BossStagePopup : UI_Popup
         {
             _isCoolDown = true;
             Managers.Resource.Instantiate("Objects/Range", transform);
-            StartCoroutine(CoSkillCoolTime(8f));
+            StartCoroutine(CoSkillCoolTime(8f)); // TODO : 쿨타임 정보 데이터로
         }
     }
     void OnClickSkillButton2()

@@ -32,5 +32,4 @@ public class UI_EquipmentPopup : UI_Popup
     {
         Managers.UI.ClosePopupUI();
     }
-
 }

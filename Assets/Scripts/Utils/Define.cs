@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Define
 {
+    public enum Equipment
+    {
+        None,
+        Attack,
+        AttackSpeed,
+        MaxHp,
+        CoolTimeReduce,
+    }
+
     public enum Scene
     {
         Unknown,

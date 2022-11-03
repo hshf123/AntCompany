@@ -6,23 +6,24 @@ using static UnityEditor.Progress;
 
 public class InventoryManager
 {
-    public Dictionary<int, BowData> Items { get; } = new Dictionary<int, BowData>();
+    // ½½·Ô¹øÈ£ 1~16
+    public Dictionary<Define.Equipment, Equipment> Items { get; } = new Dictionary<Define.Equipment, Equipment>();
 
-    public void Add(BowData item)
+    public void Add(Equipment item)
     {
-        Items.Add(item.Id, item);
+        Items.Add((Define.Equipment)item.Id, item);
     }
 
-    public BowData Get(int itemDbId)
+    public Equipment Get(Define.Equipment id)
     {
-        BowData item = null;
-        Items.TryGetValue(itemDbId, out item);
+        Equipment item = null;
+        Items.TryGetValue(id, out item);
         return item;
     }
 
-    public BowData Find(Func<BowData, bool> condition)
+    public Equipment Find(Func<Equipment, bool> condition)
     {
-        foreach (BowData item in Items.Values)
+        foreach (Equipment item in Items.Values)
         {
             if (condition.Invoke(item))
                 return item;

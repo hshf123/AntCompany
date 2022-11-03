@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class UI_InventoryPopup : UI_Popup
 {
-    List<GameObject> _buttons = new List<GameObject>();
+    // 슬롯 번호 1~16, 버튼
+    Dictionary<int, GameObject> _buttons = new Dictionary<int, GameObject>();
 
     enum Texts
     {
@@ -44,28 +45,29 @@ public class UI_InventoryPopup : UI_Popup
 
     void RefreshUI()
     {
+        // 텍스트 수정
         GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
         GetText((int)Texts.NickNameText).text = Managers.Game.Name;
         GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
 
-        GameObject go = Utils.FindChild(gameObject, "EquipmentList");
+        GameObject list = Utils.FindChild(gameObject, "EquipmentList");
         for (int i = 0; i < 16; i++)
         {
-            GameObject button = Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", go.transform).gameObject;
+            GameObject button = Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", list.transform).gameObject;
             button.FindChild("EquipmentButtonIcon").SetActive(false);
-            _buttons.Add(button);
+            _buttons.Add(i, button);
         }
 
         int equipmentCount = 0;
-        foreach (BowData bow in Managers.Inven.Items.Values)
+        foreach (Equipment bow in Managers.Data.EquipmentDict.Values)
         {
             GameObject icon = _buttons[equipmentCount].FindChild("EquipmentButtonIcon");
             icon.SetActive(true);
             // TODO : 장비 선택
             _buttons[equipmentCount].BindEvent(() => { Managers.UI.ShowPopupUI<UI_EquipmentPopup>(); Debug.Log("Click"); });
-            Image image = icon.GetComponent<Image>();
 
             // TODO : 아이콘 경로는 데이터에 저장
+            Image image = icon.GetComponent<Image>();
             image.sprite = Managers.Resource.Load<Sprite>("Sprites/Popup3/fire_01");
 
             equipmentCount++;
