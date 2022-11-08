@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Define;
 
 public class Game_Manager
 {
@@ -18,7 +19,9 @@ public class Game_Manager
     // TODO : 스킬정보
 
     // TODO : 장비 정보
-    public Dictionary<int, GameObject> Equipment { get; private set; } = new Dictionary<int, GameObject>();
+    public int SlotNumber { get; set; } = 0;
+
+    public Dictionary<int, Equipment> Wearing { get; private set; } = new Dictionary<int, Equipment>();
 
     // in Game
     public int MaxHP { get; private set; }
@@ -85,9 +88,20 @@ public class Game_Manager
         LoadData();
     }
 
-    public void SelectEquipment(GameObject gameObject)
+    public void SelectEquipment(int slot, Equipment equipment)
     {
-        // TODO 해당 장비를 스텟에 적용
+        // TODO 해당 장비를 스텟에 적용, 이미지 변경
+        if(equipment == null)
+        {
+            Debug.Log($"Equipment is Null");
+            return;
+        }
+
+        Equipment checkEquip;
+        if(Wearing.TryGetValue(slot, out checkEquip) == true)
+            Wearing.Remove(slot);
+        Wearing.Add(slot, equipment);
+        Managers.Inven.SelectedItem = null;
     }
 
     public void Save()

@@ -8,6 +8,7 @@ public class InventoryManager
 {
     // ½½·Ô¹øÈ£ 1~16
     public Dictionary<Define.Equipment, Equipment> Items { get; } = new Dictionary<Define.Equipment, Equipment>();
+    public Equipment SelectedItem { get; set; } = null;
 
     public void Add(Equipment item)
     {
