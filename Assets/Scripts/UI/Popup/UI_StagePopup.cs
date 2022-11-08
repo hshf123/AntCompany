@@ -136,6 +136,7 @@ public class UI_StagePopup : UI_Popup
         Debug.Log($"Stage End");
         Managers.UI.ShowPopupUI<UI_StageEndPopup>();
         _isEnd = true;
+        Time.timeScale = 0;
     }
 
     void OnClickSkillButton1()
