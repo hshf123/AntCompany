@@ -53,21 +53,9 @@ public class UI_InventoryPopup : UI_Popup
             _wearingButtons.Add(i + 1, icon);
         }
 
-        RefreshUI();
-
-        return true;
-    }
-
-    void RefreshUI()
-    {
-        #region 텍스트 설정
-        GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
-        GetText((int)Texts.NickNameText).text = Managers.Game.Name;
-        GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
-        #endregion
         #region 소지한 아이템 리스트 설정
         int equipmentCount = 0;
-        foreach (Equipment equipment in Managers.Data.EquipmentDict.Values)
+        foreach (Equipment equipment in Managers.Data.EquipmentDict.Values) // TODO 소지한 장비를 따로 저장
         {
             GameObject icon = _buttons[equipmentCount].FindChild("EquipmentButtonIcon");
             icon.SetActive(true);
@@ -85,6 +73,19 @@ public class UI_InventoryPopup : UI_Popup
 
             equipmentCount++;
         }
+        #endregion
+
+        RefreshUI();
+
+        return true;
+    }
+
+    public void RefreshUI()
+    {
+        #region 텍스트 설정
+        GetText((int)Texts.LevelText).text = Managers.Game.Level.ToString();
+        GetText((int)Texts.NickNameText).text = Managers.Game.Name;
+        GetText((int)Texts.MoneyText).text = Managers.Game.Money.ToString();
         #endregion
         #region 장착한 아이템 설정
         for (int i = 0; i < 4; i++)

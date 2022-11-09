@@ -28,12 +28,13 @@ public class UI_EquipmentPopup : UI_Popup
     
     void OnClickCheckButton()
     {
-        // TODO ¿Â∫Ò ¿Â¬¯
         Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, Managers.Inven.SelectedItem);
         Managers.UI.ClosePopupUI();
+        Managers.UI.Root.FindChild("UI_InventoryPopup").GetComponent<UI_InventoryPopup>().RefreshUI();
     }
     void OnClickCancelButton()
     {
         Managers.UI.ClosePopupUI();
+        Managers.UI.Root.FindChild("UI_InventoryPopup").GetComponent<UI_InventoryPopup>().RefreshUI();
     }
 }
