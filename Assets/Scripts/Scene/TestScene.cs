@@ -9,7 +9,8 @@ public class TestScene : BaseScene
         if (base.Init() == false)
             return false;
 
-        Managers.UI.ShowPopupUI<UI_InventoryPopup>();
+        Managers.UI.ShowPopupUI<UI_TitlePopup>();
+        Managers.UI.ShowSceneUI<UI_SoundIconScene>();
 
         return true;
     }

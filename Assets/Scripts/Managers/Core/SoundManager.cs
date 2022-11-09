@@ -66,6 +66,18 @@ public class SoundManager
         }
     }
 
+    public void SoundOn()
+    {
+        foreach (AudioSource audioSorce in _audioSources)
+            audioSorce.volume = 1;
+    }
+
+    public void SoundOff()
+    {
+        foreach (AudioSource audioSorce in _audioSources)
+            audioSorce.volume = 0;
+    }
+
     AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)
     {
         if (path.Contains("Sound/") == false)
