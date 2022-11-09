@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
                     _animator.Play("Player_Idle");
                     break;
                 case PlayerState.Attack:
-                    _animator.speed = Managers.Game.AttackSpeed;
+                    _animator.speed = Managers.Game.TotalAttackSpeed;
                     _animator.Play("Player_Attack");
                     break;
             }
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
     void AttackStart()
     {
-        if (_checkTime >= (1 / Managers.Game.AttackSpeed))
+        if (_checkTime >= (1 / Managers.Game.TotalAttackSpeed))
         {
             GameObject arrow = Managers.Resource.Instantiate("Objects/Arrow", _stage.transform);
             arrow.transform.position = gameObject.transform.position;

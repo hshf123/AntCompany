@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UI_BossStagePopup : UI_Popup
 {
-    Boss _bossData;
     BossController _boss;
     bool _isCoolDown = false;
     bool _isEnd = false;
@@ -46,13 +45,15 @@ public class UI_BossStagePopup : UI_Popup
         if (base.Init() == false)
             return false;
 
+        Time.timeScale = 1;
+
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
         Bind<GameObject>(typeof(GameObjects));
         BindText(typeof(Texts));
         Get<Button>((int)Buttons.SkillButton1).gameObject.BindEvent(OnClickSkillButton1);
-        Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.HP);
-        GetText((int)Texts.HpText).text = Managers.Game.HP.ToString();
+        Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.TotalHP);
+        GetText((int)Texts.HpText).text = Managers.Game.TotalHP.ToString();
 
         // TODO 보스레벨
         //if (Managers.Data.....TryGetValue(1, out _bossData) == false)
@@ -77,14 +78,14 @@ public class UI_BossStagePopup : UI_Popup
 
     void UpdateHp()
     {
-        int hp = Managers.Game.HP;
+        int hp = Managers.Game.TotalHP;
         if (hp <= 0)
         {
             hp = 0;
             StageEnd();
         }
         GetText((int)Texts.HpText).text = hp.ToString();
-        float ratio = hp / (float)Managers.Game.MaxHP;
+        float ratio = hp / (float)Managers.Game.TotalMaxHP;
         if (ratio <= 0.5f)
             GetText((int)Texts.HpText).color = Color.black;
         Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(ratio);

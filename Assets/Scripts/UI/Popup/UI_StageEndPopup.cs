@@ -52,7 +52,7 @@ public class UI_StageEndPopup : UI_Popup
 
         Get<Button>((int)Buttons.CheckButton).gameObject.BindEvent(OnClickCheckButton);
 
-        if (Managers.Game.HP == 0)
+        if (Managers.Game.TotalHP == 0)
             _results = Results.Defeat;
         else
             _results = Results.Victory;
@@ -91,9 +91,9 @@ public class UI_StageEndPopup : UI_Popup
         GetText((int)Texts.LevelBeforeText).text = Managers.Game.Level.ToString();
         GetText((int)Texts.ExpBeforeText).text = Managers.Game.Exp.ToString();
         GetText((int)Texts.MoneyBeforeText).text = Managers.Game.Money.ToString();
-        GetText((int)Texts.MaxHpBeforeText).text = Managers.Game.MaxHP.ToString();
-        GetText((int)Texts.AttackBeforeText).text = Managers.Game.Attack.ToString();
-        GetText((int)Texts.AttackSpeedBeforeText).text = Managers.Game.AttackSpeed.ToString();
+        GetText((int)Texts.MaxHpBeforeText).text = Managers.Game.TotalMaxHP.ToString();
+        GetText((int)Texts.AttackBeforeText).text = Managers.Game.TotalAttack.ToString();
+        GetText((int)Texts.AttackSpeedBeforeText).text = Managers.Game.TotalAttackSpeed.ToString();
         #endregion
         switch (_results)
         {
@@ -108,9 +108,9 @@ public class UI_StageEndPopup : UI_Popup
         GetText((int)Texts.LevelAfterText).text = Managers.Game.Level.ToString();
         GetText((int)Texts.ExpAfterText).text = Managers.Game.Exp.ToString();
         GetText((int)Texts.MoneyAfterText).text = Managers.Game.Money.ToString();
-        GetText((int)Texts.MaxHpAfterText).text = Managers.Game.MaxHP.ToString();
-        GetText((int)Texts.AttackAfterText).text = Managers.Game.Attack.ToString();
-        GetText((int)Texts.AttackSpeedAfterText).text = Managers.Game.AttackSpeed.ToString();
+        GetText((int)Texts.MaxHpAfterText).text = Managers.Game.TotalMaxHP.ToString();
+        GetText((int)Texts.AttackAfterText).text = Managers.Game.TotalAttack.ToString();
+        GetText((int)Texts.AttackSpeedAfterText).text = Managers.Game.TotalAttackSpeed.ToString();
         #endregion
         Managers.Game.Save();
 

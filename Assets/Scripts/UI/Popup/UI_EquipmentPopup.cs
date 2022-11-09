@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class UI_EquipmentPopup : UI_Popup
 {
-    int _slotNum = 0;
-
     enum Buttons
     {
         CheckButton,
@@ -31,6 +29,7 @@ public class UI_EquipmentPopup : UI_Popup
         Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, Managers.Inven.SelectedItem);
         Managers.UI.ClosePopupUI();
         Managers.UI.Root.FindChild("UI_InventoryPopup").GetComponent<UI_InventoryPopup>().RefreshUI();
+        Managers.Game.Save();
     }
     void OnClickCancelButton()
     {

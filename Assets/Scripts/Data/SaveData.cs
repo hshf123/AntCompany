@@ -15,4 +15,6 @@ public class SaveData
     public int Attack;
     public float AttackSpeed;
     public int Money;
+
+    public List<Equipment> Equipment = new List<Equipment>();
 }

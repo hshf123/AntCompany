@@ -62,8 +62,8 @@ public class ArrowController : MonoBehaviour
         Managers.Resource.Destroy(gameObject);
 
         if (mc != null)
-            mc.OnDamaged(Managers.Game.Attack);
+            mc.OnDamaged(Managers.Game.TotalAttack);
         if (bc != null)
-            bc.OnDamaged(Managers.Game.Attack);
+            bc.OnDamaged(Managers.Game.TotalAttack);
     }
 }

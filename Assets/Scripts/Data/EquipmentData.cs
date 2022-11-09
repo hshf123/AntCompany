@@ -4,31 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class EquipmentData : ILoader<Define.Equipment, Equipment>
+public class EquipmentData : ILoader<int, Equipment>
 {
     public List<AttackEquipment> attacks = new List<AttackEquipment>();
     public List<AttackSpeedEquipment> attackSpeeds = new List<AttackSpeedEquipment>();
     public List<MaxHpEquipment> maxHps = new List<MaxHpEquipment>();
     public List<CoolTimeReduceEquipment> coolTimeReduces = new List<CoolTimeReduceEquipment>();
 
-    public Dictionary<Define.Equipment, Equipment> MakeDict()
+    public Dictionary<int, Equipment> MakeDict()
     {
-        Dictionary<Define.Equipment, Equipment> dict = new Dictionary<Define.Equipment, Equipment>();
+        Dictionary<int, Equipment> dict = new Dictionary<int, Equipment>();
         foreach (AttackEquipment attack in attacks)
         {
-            dict.Add((Define.Equipment)attack.Id, attack);
+            dict.Add(attack.Id, attack);
         }
         foreach (AttackSpeedEquipment attackSpeed in attackSpeeds)
         {
-            dict.Add((Define.Equipment)attackSpeed.Id, attackSpeed);
+            dict.Add(attackSpeed.Id, attackSpeed);
         }
         foreach (MaxHpEquipment maxHp in maxHps)
         {
-            dict.Add((Define.Equipment)maxHp.Id, maxHp);
+            dict.Add(maxHp.Id, maxHp);
         }
         foreach (CoolTimeReduceEquipment coolTimeReduce in coolTimeReduces)
         {
-            dict.Add((Define.Equipment)coolTimeReduce.Id, coolTimeReduce);
+            dict.Add(coolTimeReduce.Id, coolTimeReduce);
         }
 
         return dict;
@@ -39,6 +39,7 @@ public class EquipmentData : ILoader<Define.Equipment, Equipment>
 public class Equipment
 {
     public int Id;
+    public int Type;
     public string Name;
 }
 

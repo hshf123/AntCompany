@@ -24,6 +24,11 @@ public class Game_Manager
     public Dictionary<int, Equipment> Wearing { get; private set; } = new Dictionary<int, Equipment>();
 
     // in Game
+    public int TotalMaxHP { get; private set; } = 0;
+    public int TotalHP { get; private set; } = 0;
+    public float TotalAttackSpeed { get; set; } = 0;
+    public int TotalAttack { get; set; } = 0;
+
     public int MaxHP { get; private set; }
     public int HP { get; private set; }
     public float AttackSpeed { get; set; }
@@ -59,6 +64,11 @@ public class Game_Manager
 
         ArrowSpeed = _arrowData.Speed;
 
+        TotalAttack = Attack;
+        TotalAttackSpeed = AttackSpeed;
+        TotalMaxHP = MaxHP;
+        TotalHP = HP;
+
         Save();
     }
 
@@ -69,9 +79,9 @@ public class Game_Manager
 
     public void OnDamaged(int damage)
     {
-        HP -= damage;
-        if (HP <= 0)
-            HP = 0;
+        TotalHP -= damage;
+        if (TotalHP <= 0)
+            TotalHP = 0;
     }
     public void AddExp(float exp)
     {
@@ -90,18 +100,35 @@ public class Game_Manager
 
     public void SelectEquipment(int slot, Equipment equipment)
     {
-        // TODO 해당 장비를 스텟에 적용, 이미지 변경
-        if(equipment == null)
+        if (equipment == null)
         {
             Debug.Log($"Equipment is Null");
             return;
         }
 
         Equipment checkEquip;
-        if(Wearing.TryGetValue(slot, out checkEquip) == true)
+        if (Wearing.TryGetValue(slot, out checkEquip) == true)
             Wearing.Remove(slot);
         Wearing.Add(slot, equipment);
         Managers.Inven.SelectedItem = null;
+
+        switch ((Define.Equipment)equipment.Type)
+        {
+            case Define.Equipment.Attack:
+                TotalAttack += (equipment as AttackEquipment).Attack;
+                break;
+            case Define.Equipment.AttackSpeed:
+                TotalAttackSpeed += (equipment as AttackSpeedEquipment).AttackSpeed;
+                break;
+            case Define.Equipment.MaxHp:
+                int maxHp = (equipment as MaxHpEquipment).MaxHp;
+                TotalMaxHP += maxHp;
+                TotalHP += maxHp;
+                break;
+            case Define.Equipment.CoolTimeReduce:
+                // TODO 쿨타임 감소 적용
+                break;
+        }
     }
 
     public void Save()
@@ -118,6 +145,10 @@ public class Game_Manager
         save.Money = Money;
 
         // TODO : 스킬 정보 세이브
+        foreach (Equipment equipment in Wearing.Values)
+        {
+            save.Equipment.Add(equipment);
+        }
 
         Managers.Data.Save(save);
     }
@@ -153,6 +184,54 @@ public class Game_Manager
         Exp = save.Exp;
         Money = save.Money;
 
+        TotalAttack += Attack;
+        TotalAttackSpeed += AttackSpeed;
+        TotalMaxHP += MaxHP;
+        TotalHP += HP;
+
+        if (save.Equipment.Count > 0)
+        {
+            foreach (Equipment equipment in save.Equipment)
+            {
+                Define.Equipment type = (Define.Equipment)equipment.Type;
+                switch (type)
+                {
+                    case Define.Equipment.Attack:
+                        {
+                            Equipment equip;
+                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                            {
+                                TotalAttack += (equip as AttackEquipment).Attack;
+                                Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, equip);
+                            }
+                        }
+                        break;
+                    case Define.Equipment.AttackSpeed:
+                        {
+                            Equipment equip;
+                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                            {
+                                TotalAttackSpeed += (equip as AttackSpeedEquipment).AttackSpeed;
+                                Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, equip);
+                            }
+                        }
+                        break;
+                    case Define.Equipment.MaxHp:
+                        {
+                            Equipment equip;
+                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                            {
+                                TotalMaxHP += (equip as MaxHpEquipment).MaxHp;
+                                Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, equip);
+                            }
+                        }
+                        break;
+                    case Define.Equipment.CoolTimeReduce:
+                        // TODO 쿨타임 감소 적용
+                        break;
+                }
+            }
+        }
         // TODO : 스킬 정보 세이브
 
         return true;
