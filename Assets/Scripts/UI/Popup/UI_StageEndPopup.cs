@@ -113,8 +113,6 @@ public class UI_StageEndPopup : UI_Popup
         GetText((int)Texts.AttackSpeedAfterText).text = Managers.Game.TotalAttackSpeed.ToString();
         #endregion
         Managers.Game.Save();
-
-        // TODO 체력 다시 원상 복귀
     }
 
     void OnClickCheckButton()

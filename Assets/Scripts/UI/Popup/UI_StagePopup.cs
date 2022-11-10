@@ -63,8 +63,8 @@ public class UI_StagePopup : UI_Popup
         Bind<GameObject>(typeof(GameObjects));
         BindText(typeof(Texts));
         Get<Button>((int)Buttons.SkillButton1).gameObject.BindEvent(OnClickSkillButton1);
-        Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.TotalHP);
-        GetText((int)Texts.HpText).text = Managers.Game.TotalHP.ToString();
+        Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.TotalMaxHP);
+        GetText((int)Texts.HpText).text = Managers.Game.TotalMaxHP.ToString();
 
         if (Managers.Data.StageDict.TryGetValue((int)StageLevel, out _stageData) == false)
         {

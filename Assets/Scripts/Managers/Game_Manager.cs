@@ -194,7 +194,6 @@ public class Game_Manager
         TotalAttack -= Attack;
         TotalAttackSpeed -= AttackSpeed;
         TotalMaxHP -= MaxHP;
-        TotalHP -= HP;
 
         if (Managers.Data.PlayerDict.TryGetValue(level, out _playerData) == false)
         {
@@ -223,10 +222,11 @@ public class Game_Manager
         TotalAttack += Attack;
         TotalAttackSpeed += AttackSpeed;
         TotalMaxHP += MaxHP;
-        TotalHP += HP;
+        TotalHP = TotalMaxHP;
 
         if (save.Equipment.Count > 0)
         {
+            int equipCount = 0;
             foreach (Equipment equipment in save.Equipment)
             {
                 Define.Equipment type = (Define.Equipment)equipment.Type;
@@ -236,27 +236,28 @@ public class Game_Manager
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(SlotNumber++ % 4, equip);
+                                SelectEquipment(equipCount, equip);
                         }
                         break;
                     case Define.Equipment.AttackSpeed:
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(SlotNumber++ % 4, equip);
+                                SelectEquipment(equipCount, equip);
                         }
                         break;
                     case Define.Equipment.MaxHp:
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(SlotNumber++ % 4, equip);
+                                SelectEquipment(equipCount, equip);
                         }
                         break;
                     case Define.Equipment.CoolTimeReduce:
                         // TODO 쿨타임 감소 적용
                         break;
                 }
+                equipCount++;
             }
         }
         // TODO : 스킬 정보 세이브
