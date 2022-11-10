@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_SoundIconScene : UI_Scene
+public class UI_MainScene : UI_Scene
 {
     bool _soundOnOff = true;
     Sprite _soundOnImage;
@@ -11,12 +11,13 @@ public class UI_SoundIconScene : UI_Scene
 
     enum Buttons
     {
-        SoundOnOffButton
+        SoundOnOffButton,
+        PlayerInfoButton,
     }
 
     enum Images
     {
-        SoundOnOffButtonIcon
+        SoundOnOffButtonIcon,
     }
 
     public override bool Init()
@@ -28,6 +29,7 @@ public class UI_SoundIconScene : UI_Scene
         Bind<Image>(typeof(Images));
 
         Get<Button>((int)Buttons.SoundOnOffButton).gameObject.BindEvent(OnClickSoundOnOffButton);
+        Get<Button>((int)Buttons.PlayerInfoButton).gameObject.BindEvent(OnClickPlayerInfoButton);
 
         _soundOnImage = Managers.Resource.Load<Sprite>("Sprites/Icon/icon_sound_on");
         _soundOffImage = Managers.Resource.Load<Sprite>("Sprites/Icon/icon_sound_off");
@@ -49,5 +51,10 @@ public class UI_SoundIconScene : UI_Scene
             _soundOnOff = true;
             Get<Image>((int)Images.SoundOnOffButtonIcon).sprite = _soundOnImage;
         }
+    }
+
+    void OnClickPlayerInfoButton()
+    {
+        Managers.UI.ShowPopupUI<UI_PlayerInfoPopup>();
     }
 }
