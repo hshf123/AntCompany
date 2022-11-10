@@ -55,11 +55,10 @@ public class UI_InventoryPopup : UI_Popup
 
         #region 소지한 아이템 리스트 설정
         int equipmentCount = 0;
-        foreach (Equipment equipment in Managers.Data.EquipmentDict.Values) // TODO 소지한 장비를 따로 저장
+        foreach (Equipment equipment in Managers.Data.EquipmentDict.Values)
         {
             GameObject icon = _buttons[equipmentCount].FindChild("EquipmentButtonIcon");
             icon.SetActive(true);
-            // TODO : 장비 선택
             _buttons[equipmentCount].BindEvent(() =>
             {
                 Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
@@ -67,7 +66,6 @@ public class UI_InventoryPopup : UI_Popup
                 Debug.Log("Click");
             });
 
-            // TODO : 아이콘 경로는 데이터에 저장
             Image image = icon.GetComponent<Image>();
             image.sprite = Managers.Resource.Load<Sprite>(equipment.Path);
 
