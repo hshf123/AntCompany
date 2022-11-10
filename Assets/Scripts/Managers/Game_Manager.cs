@@ -29,10 +29,10 @@ public class Game_Manager
     public float TotalAttackSpeed { get; set; } = 0;
     public int TotalAttack { get; set; } = 0;
 
-    public int MaxHP { get; private set; }
-    public int HP { get; private set; }
-    public float AttackSpeed { get; set; }
-    public int Attack { get; set; }
+    int MaxHP { get; set; }
+    int HP { get; set; }
+    float AttackSpeed { get; set; }
+    int Attack { get; set; }
 
     public float ArrowSpeed { get; set; }
 
@@ -108,7 +108,10 @@ public class Game_Manager
 
         Equipment checkEquip;
         if (Wearing.TryGetValue(slot, out checkEquip) == true)
+        {
+            ClearEquipment(slot);
             Wearing.Remove(slot);
+        }
         Wearing.Add(slot, equipment);
         Managers.Inven.SelectedItem = null;
 
@@ -124,6 +127,34 @@ public class Game_Manager
                 int maxHp = (equipment as MaxHpEquipment).MaxHp;
                 TotalMaxHP += maxHp;
                 TotalHP += maxHp;
+                break;
+            case Define.Equipment.CoolTimeReduce:
+                // TODO 쿨타임 감소 적용
+                break;
+        }
+    }
+    public void ClearEquipment(int slot)
+    {
+        Equipment equipment;
+        if (Wearing.TryGetValue(slot, out equipment) == false)
+        {
+            Debug.Log("No equipment in that slot");
+            return;
+        }
+
+        Define.Equipment type = (Define.Equipment)equipment.Type;
+        switch (type)
+        {
+            case Define.Equipment.Attack:
+                TotalAttack -= (equipment as AttackEquipment).Attack;
+                break;
+            case Define.Equipment.AttackSpeed:
+                TotalAttackSpeed -= (equipment as AttackSpeedEquipment).AttackSpeed;
+                break;
+            case Define.Equipment.MaxHp:
+                int maxHp = (equipment as MaxHpEquipment).MaxHp;
+                TotalMaxHP -= maxHp;
+                TotalHP -= maxHp;
                 break;
             case Define.Equipment.CoolTimeReduce:
                 // TODO 쿨타임 감소 적용
@@ -159,6 +190,11 @@ public class Game_Manager
             return false;
 
         int level = save.Level;
+
+        TotalAttack -= Attack;
+        TotalAttackSpeed -= AttackSpeed;
+        TotalMaxHP -= MaxHP;
+        TotalHP -= HP;
 
         if (Managers.Data.PlayerDict.TryGetValue(level, out _playerData) == false)
         {
@@ -200,30 +236,21 @@ public class Game_Manager
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                            {
-                                TotalAttack += (equip as AttackEquipment).Attack;
-                                Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, equip);
-                            }
+                                SelectEquipment(SlotNumber++ % 4, equip);
                         }
                         break;
                     case Define.Equipment.AttackSpeed:
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                            {
-                                TotalAttackSpeed += (equip as AttackSpeedEquipment).AttackSpeed;
-                                Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, equip);
-                            }
+                                SelectEquipment(SlotNumber++ % 4, equip);
                         }
                         break;
                     case Define.Equipment.MaxHp:
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                            {
-                                TotalMaxHP += (equip as MaxHpEquipment).MaxHp;
-                                Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, equip);
-                            }
+                                SelectEquipment(SlotNumber++ % 4, equip);
                         }
                         break;
                     case Define.Equipment.CoolTimeReduce:
