@@ -41,6 +41,7 @@ public class Equipment
     public int Id;
     public int Type;
     public string Name;
+    public string Path;
 }
 
 [Serializable]

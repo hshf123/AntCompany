@@ -8,7 +8,7 @@ public class UI_InventoryPopup : UI_Popup
 {
     // 슬롯 번호 1~16, 버튼
     Dictionary<int, GameObject> _buttons = new Dictionary<int, GameObject>();
-    // 슬롯 번호 1~16, 버튼
+    // 슬롯 번호 1~4, 버튼
     Dictionary<int, GameObject> _wearingButtons = new Dictionary<int, GameObject>();
 
     enum Texts
@@ -69,7 +69,7 @@ public class UI_InventoryPopup : UI_Popup
 
             // TODO : 아이콘 경로는 데이터에 저장
             Image image = icon.GetComponent<Image>();
-            image.sprite = Managers.Resource.Load<Sprite>("Sprites/Popup3/fire_01");
+            image.sprite = Managers.Resource.Load<Sprite>(equipment.Path);
 
             equipmentCount++;
         }
@@ -102,7 +102,7 @@ public class UI_InventoryPopup : UI_Popup
                 }
                 // TODO : 아이콘 경로는 데이터에 저장
                 Image image = go.GetComponent<Image>();
-                image.sprite = Managers.Resource.Load<Sprite>("Sprites/Popup3/fire_01");
+                image.sprite = Managers.Resource.Load<Sprite>(equipment.Path);
                 go.SetActive(true);
             }
         }
