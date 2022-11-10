@@ -86,16 +86,21 @@ public class Game_Manager
     public void AddExp(float exp)
     {
         Exp += exp;
+        CheckLevelUp();
+        Save();
+        LoadData();
+    }
+    void CheckLevelUp()
+    {
         if (MaxExp <= Exp)
         {
-            // TODO
+            Exp -= MaxExp;
             Level += 1;
             if (Level >= 5)
                 Level = 5;
-            Exp -= MaxExp;
+            if (Exp >= MaxExp)
+                CheckLevelUp();
         }
-        Save();
-        LoadData();
     }
 
     public void SelectEquipment(int slot, Equipment equipment)
