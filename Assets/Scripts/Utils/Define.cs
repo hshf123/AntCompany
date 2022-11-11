@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class Define
 {
-    public enum Equipment
+    public enum SkillType
+    {
+        Range,
+        Target,
+        Debuff,
+        Buff,
+    }
+
     public enum EquipmentType
     {
         None,

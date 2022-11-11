@@ -20,6 +20,7 @@ public class DataManager
     public Dictionary<int, Player> PlayerDict { get; private set; } = new Dictionary<int, Player>();
     public Dictionary<int, Stage> StageDict { get; private set; } = new Dictionary<int, Stage>();
     public Dictionary<int, Equipment> EquipmentDict { get; private set; } = new Dictionary<int, Equipment>();
+    public Dictionary<int, Skill> SkillDict { get; private set; } = new Dictionary<int, Skill>();
 
     public void Init()
     {
@@ -29,6 +30,7 @@ public class DataManager
         PlayerDict = LoadJson<PlayerData, int, Player>("PlayerData").MakeDict();
         StageDict = LoadJson<StageData, int, Stage>("StageData").MakeDict();
         EquipmentDict = LoadJson<EquipmentData, int, Equipment>("EquipmentData").MakeDict();
+        SkillDict = LoadJson<SkillData, int, Skill>("SkillData").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
