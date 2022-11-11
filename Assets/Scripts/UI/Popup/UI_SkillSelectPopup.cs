@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_EquipmentPopup : UI_Popup
+public class UI_SkillSelectPopup : UI_Popup
 {
     enum Buttons
     {
@@ -26,9 +26,9 @@ public class UI_EquipmentPopup : UI_Popup
 
     void OnClickCheckButton()
     {
-        Managers.Game.SelectEquipment(Managers.Game.EquipmentSlotNumber++ % 4, Managers.Inven.SelectedItem);
+        Managers.Game.SelectSkill(Managers.Game.SkillSlotNumber++ % 4, Managers.Skill.SelectedSkill);
         Managers.UI.ClosePopupUI();
-        Managers.UI.Root.FindChild("UI_InventoryPopup").GetComponent<UI_InventoryPopup>().RefreshUI();
+        Managers.UI.Root.FindChild("UI_SkillPopup").GetComponent<UI_SkillPopup>().RefreshUI();
         Managers.Game.Save();
     }
     void OnClickCancelButton()

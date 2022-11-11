@@ -16,11 +16,12 @@ public class Game_Manager
     public float Exp { get; set; }
     public int Money { get; set; }
 
-    // TODO : 스킬정보
+    // 스킬 정보
+    public int SkillSlotNumber { get; set; } = 0;
+    public Dictionary<int, Skill> Skills { get; private set; } = new Dictionary<int, Skill>();
 
-    // TODO : 장비 정보
-    public int SlotNumber { get; set; } = 0;
-
+    // 장비 정보
+    public int EquipmentSlotNumber { get; set; } = 0;
     public Dictionary<int, Equipment> Wearing { get; private set; } = new Dictionary<int, Equipment>();
 
     // in Game
@@ -167,6 +168,66 @@ public class Game_Manager
         }
     }
 
+    public void SelectSkill(int slot, Skill skill)
+    {
+        if (skill == null)
+        {
+            Debug.Log($"Skill is Null");
+            return;
+        }
+
+        Skill checkSkill;
+        if (Skills.TryGetValue(slot, out checkSkill) == true)
+        {
+            ClearSkill(slot);
+            Skills.Remove(slot);
+        }
+        Skills.Add(slot, skill);
+        Managers.Skill.SelectedSkill = null;
+
+        switch ((Define.SkillType)skill.Type)
+        {
+            case Define.SkillType.Range:
+                //(skill as RangeSkill).Damage;
+                break;
+            case Define.SkillType.Target:
+                //(skill as TargetSkill);
+                break;
+            case Define.SkillType.Debuff:
+                //(skill as DebuffSkill);
+                break;
+            case Define.SkillType.Buff:
+                //(skill as BuffSkill);
+                break;
+        }
+    }
+    public void ClearSkill(int slot)
+    {
+        Skill skill;
+        if (Skills.TryGetValue(slot, out skill) == false)
+        {
+            Debug.Log("No skill in that slot");
+            return;
+        }
+
+        Define.SkillType type = (Define.SkillType)skill.Type;
+        switch (type)
+        {
+            case Define.SkillType.Range:
+                //(skill as AttackEquipment);
+                break;
+            case Define.SkillType.Target:
+                //(skill as AttackSpeedEquipment);
+                break;
+            case Define.SkillType.Debuff:
+                //(skill as MaxHpEquipment);
+                break;
+            case Define.SkillType.Buff:
+                //(skill as BuffSkill);
+                break;
+        }
+    }
+
     public void Save()
     {
         SaveData save = new SaveData();
@@ -180,10 +241,14 @@ public class Game_Manager
         save.AttackSpeed = AttackSpeed;
         save.Money = Money;
 
-        // TODO : 스킬 정보 세이브
         foreach (Equipment equipment in Wearing.Values)
         {
             save.Equipment.Add(equipment);
+        }
+        
+        foreach (Skill skill in Skills.Values)
+        {
+            save.Skill.Add(skill);
         }
 
         Managers.Data.Save(save);
@@ -265,7 +330,46 @@ public class Game_Manager
                 equipCount++;
             }
         }
-        // TODO : 스킬 정보 세이브
+        if (save.Skill.Count > 0)
+        {
+            int skillCount = 0;
+            foreach (Skill skill in save.Skill)
+            {
+                Define.SkillType type = (Define.SkillType)skill.Type;
+                switch (type)
+                {
+                    case Define.SkillType.Range:
+                        {
+                            Skill s;
+                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
+                                SelectSkill(skillCount, s);
+                        }
+                        break;
+                    case Define.SkillType.Target:
+                        {
+                            Skill s;
+                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
+                                SelectSkill(skillCount, s);
+                        }
+                        break;
+                    case Define.SkillType.Debuff:
+                        {
+                            Skill s;
+                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
+                                SelectSkill(skillCount, s);
+                        }
+                        break;
+                    case Define.SkillType.Buff:
+                        {
+                            Skill s;
+                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
+                                SelectSkill(skillCount, s);
+                        }
+                        break;
+                }
+                skillCount++;
+            }
+        }
 
         return true;
     }

@@ -17,4 +17,5 @@ public class SaveData
     public int Money;
 
     public List<Equipment> Equipment = new List<Equipment>();
+    public List<Skill> Skill = new List<Skill>();
 }
