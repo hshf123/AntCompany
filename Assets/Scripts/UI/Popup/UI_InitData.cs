@@ -31,7 +31,6 @@ public class UI_InitData : UI_Popup
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_InputNickNamePopup>();
-        Managers.Sound.Clear();
     }
     void OnCancelButton()
     {

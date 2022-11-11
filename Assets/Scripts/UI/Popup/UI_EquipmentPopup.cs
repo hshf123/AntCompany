@@ -23,7 +23,7 @@ public class UI_EquipmentPopup : UI_Popup
 
         return true;
     }
-    
+
     void OnClickCheckButton()
     {
         Managers.Game.SelectEquipment(Managers.Game.SlotNumber++ % 4, Managers.Inven.SelectedItem);

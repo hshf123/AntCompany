@@ -5,6 +5,7 @@ using UnityEngine;
 public class Define
 {
     public enum Equipment
+    public enum EquipmentType
     {
         None,
         Attack,

@@ -50,7 +50,7 @@ public class UI_PlayerInfoPopup : UI_Popup
         GetText((int)Texts.AttackText).text = Managers.Game.TotalAttack.ToString();
         GetText((int)Texts.AttackSpeedText).text = Managers.Game.TotalAttackSpeed.ToString();
         GetText((int)Texts.MaxHpText).text = Managers.Game.TotalMaxHP.ToString();
-        
+
         int slot = 0;
         for (int i = (int)Texts.EquipmentText1; i <= (int)Texts.EquipmentText4; i++)
         {
@@ -65,6 +65,7 @@ public class UI_PlayerInfoPopup : UI_Popup
 
     void OnClickOKButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.ClosePopupUI();
     }
 }

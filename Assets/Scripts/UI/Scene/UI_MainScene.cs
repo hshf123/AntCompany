@@ -39,7 +39,8 @@ public class UI_MainScene : UI_Scene
 
     void OnClickSoundOnOffButton()
     {
-        if(_soundOnOff)
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+        if (_soundOnOff)
         {
             Managers.Sound.SoundOff();
             _soundOnOff = false;
@@ -55,6 +56,7 @@ public class UI_MainScene : UI_Scene
 
     void OnClickPlayerInfoButton()
     {
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.ShowPopupUI<UI_PlayerInfoPopup>();
     }
 }

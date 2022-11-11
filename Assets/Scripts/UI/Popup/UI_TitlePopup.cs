@@ -46,6 +46,7 @@ public class UI_TitlePopup : UI_Popup
         {
             Managers.UI.ClosePopupUI();
             Managers.UI.ShowPopupUI<UI_PlayPopup>();
+            Managers.Sound.Clear();
         }
     }
 }

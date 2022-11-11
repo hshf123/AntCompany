@@ -120,20 +120,20 @@ public class Game_Manager
         Wearing.Add(slot, equipment);
         Managers.Inven.SelectedItem = null;
 
-        switch ((Define.Equipment)equipment.Type)
+        switch ((Define.EquipmentType)equipment.Type)
         {
-            case Define.Equipment.Attack:
+            case Define.EquipmentType.Attack:
                 TotalAttack += (equipment as AttackEquipment).Attack;
                 break;
-            case Define.Equipment.AttackSpeed:
+            case Define.EquipmentType.AttackSpeed:
                 TotalAttackSpeed += (equipment as AttackSpeedEquipment).AttackSpeed;
                 break;
-            case Define.Equipment.MaxHp:
+            case Define.EquipmentType.MaxHp:
                 int maxHp = (equipment as MaxHpEquipment).MaxHp;
                 TotalMaxHP += maxHp;
                 TotalHP += maxHp;
                 break;
-            case Define.Equipment.CoolTimeReduce:
+            case Define.EquipmentType.CoolTimeReduce:
                 // TODO 쿨타임 감소 적용
                 break;
         }
@@ -147,21 +147,21 @@ public class Game_Manager
             return;
         }
 
-        Define.Equipment type = (Define.Equipment)equipment.Type;
+        Define.EquipmentType type = (Define.EquipmentType)equipment.Type;
         switch (type)
         {
-            case Define.Equipment.Attack:
+            case Define.EquipmentType.Attack:
                 TotalAttack -= (equipment as AttackEquipment).Attack;
                 break;
-            case Define.Equipment.AttackSpeed:
+            case Define.EquipmentType.AttackSpeed:
                 TotalAttackSpeed -= (equipment as AttackSpeedEquipment).AttackSpeed;
                 break;
-            case Define.Equipment.MaxHp:
+            case Define.EquipmentType.MaxHp:
                 int maxHp = (equipment as MaxHpEquipment).MaxHp;
                 TotalMaxHP -= maxHp;
                 TotalHP -= maxHp;
                 break;
-            case Define.Equipment.CoolTimeReduce:
+            case Define.EquipmentType.CoolTimeReduce:
                 // TODO 쿨타임 감소 적용
                 break;
         }
@@ -234,31 +234,31 @@ public class Game_Manager
             int equipCount = 0;
             foreach (Equipment equipment in save.Equipment)
             {
-                Define.Equipment type = (Define.Equipment)equipment.Type;
+                Define.EquipmentType type = (Define.EquipmentType)equipment.Type;
                 switch (type)
                 {
-                    case Define.Equipment.Attack:
+                    case Define.EquipmentType.Attack:
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
                                 SelectEquipment(equipCount, equip);
                         }
                         break;
-                    case Define.Equipment.AttackSpeed:
+                    case Define.EquipmentType.AttackSpeed:
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
                                 SelectEquipment(equipCount, equip);
                         }
                         break;
-                    case Define.Equipment.MaxHp:
+                    case Define.EquipmentType.MaxHp:
                         {
                             Equipment equip;
                             if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
                                 SelectEquipment(equipCount, equip);
                         }
                         break;
-                    case Define.Equipment.CoolTimeReduce:
+                    case Define.EquipmentType.CoolTimeReduce:
                         // TODO 쿨타임 감소 적용
                         break;
                 }
