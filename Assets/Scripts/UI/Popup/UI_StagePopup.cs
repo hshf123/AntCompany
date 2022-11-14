@@ -43,7 +43,7 @@ public class UI_StagePopup : UI_BaseStagePopup
 
     void UpdateMonsterCount()
     {
-        if (Managers.Game.Monsters.Count == 0)
+        if (Managers.Game.Creatures.Count == 0)
             StageEnd();
     }
 
@@ -53,7 +53,7 @@ public class UI_StagePopup : UI_BaseStagePopup
         {
             GameObject monster = Managers.Resource.Instantiate("Objects/Monster", gameObject.transform);
             MonsterController mc = monster.GetComponent<MonsterController>();
-            Managers.Game.Monsters.Add(mc);
+            Managers.Game.Creatures.Add(mc);
             mc.SetStage(gameObject);
         }
     }

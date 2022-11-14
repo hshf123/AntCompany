@@ -92,7 +92,7 @@ public class MonsterController : CreatureController
     protected override void OnDead()
     {
         Managers.Resource.Destroy(gameObject);
-        Managers.Game.Monsters.Remove(gameObject.GetComponent<MonsterController>());
+        Managers.Game.Creatures.Remove(gameObject.GetComponent<MonsterController>());
         // TODO : º“∏Í ¿Ã∆Â∆Æ
     }
 }

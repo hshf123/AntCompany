@@ -6,8 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     Animator _animator;
     GameObject _stage;
-    MonsterController _target;
-    BossController _bossTarget;
+    CreatureController _target;
     float _attackRange;
     float _checkTime = 0f;
     bool _canAttack = true;
@@ -52,52 +51,36 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _checkTime += Time.deltaTime;
-        FindMonster();
-        FindBoss();
+        Patrol();
         if (_target != null && _canAttack)
             AttackStart();
-        if (_bossTarget != null && _canAttack)
-            AttackStart();
 
-        if (_target == null && _bossTarget == null)
+        if (_target == null)
             State = PlayerState.IDLE;
     }
 
-    void FindMonster()
+    void Patrol()
     {
-        if (Managers.Game.Monsters.Count == 0)
+        if (Managers.Game.Creatures.Count == 0)
         {
             _target = null;
             return;
         }
 
-        _target = Managers.Game.Monsters[0];
-        foreach (MonsterController mc in Managers.Game.Monsters)
+        _target = Managers.Game.Creatures[0];
+        foreach (CreatureController cc in Managers.Game.Creatures)
         {
             if (_target != null)
             {
-                if (_target.transform.position.y >= mc.transform.position.y)
+                if (_target.transform.position.y >= cc.transform.position.y)
                 {
                     if (_target.transform.position.y <= _attackRange)
-                        _target = mc;
+                        _target = cc;
                     else
                         _target = null;
                 }
             }
         }
-    }
-    void FindBoss()
-    {
-        if (Managers.Game.Boss == null)
-        {
-            _bossTarget = null;
-            return;
-        }
-
-        _bossTarget = Managers.Game.Boss;
-
-        if (_bossTarget.transform.position.y > _attackRange)
-            _bossTarget = null;
     }
 
     void AttackStart()
@@ -109,8 +92,6 @@ public class PlayerController : MonoBehaviour
             _checkTime = 0;
             if (_target != null)
                 arrow.GetComponent<ArrowController>().SetTarget(_target.transform.position);
-            if (_bossTarget != null)
-                arrow.GetComponent<ArrowController>().SetTarget(_bossTarget.transform.position);
             State = PlayerState.Attack;
             Managers.Sound.Play("Sound_AttackButton");
         }

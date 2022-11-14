@@ -55,7 +55,7 @@ public class BossController : CreatureController
         _attack = _bossData.Attack;
         _speed = _bossData.Speed;
 
-        Managers.Game.Boss = this;
+        Managers.Game.Creatures.Add(this);
     }
 
     public void PlayAnimation(string name, bool loop = true)

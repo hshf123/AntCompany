@@ -38,8 +38,7 @@ public class Game_Manager
     public float ArrowSpeed { get; set; }
 
     public int MonsterCount { get; set; }
-    public List<MonsterController> Monsters = new List<MonsterController>();
-    public BossController Boss;
+    public List<CreatureController> Creatures = new List<CreatureController>();
 
     public void Init()
     {

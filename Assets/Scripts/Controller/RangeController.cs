@@ -23,21 +23,12 @@ public class RangeController : MonoBehaviour
 
     void StartSkill()
     {
-        if (Managers.Game.Boss != null)
+        for (int i = 0; i < Managers.Game.Creatures.Count; i++)
         {
-            if (Managers.Game.Boss.InSkillRange == true)
+            CreatureController cc = Managers.Game.Creatures[i];
+            if (cc.InSkillRange && cc != null)
             {
-                Managers.Game.Boss.OnDamaged(_damage);
-                Debug.Log($"SkillDamage {_damage}");
-            }
-        }
-
-        for (int i = 0; i < Managers.Game.Monsters.Count; i++)
-        {
-            MonsterController mc = Managers.Game.Monsters[i];
-            if (mc.InSkillRange && mc != null)
-            {
-                Managers.Game.Monsters[i].OnDamaged(_damage);
+                Managers.Game.Creatures[i].OnDamaged(_damage);
                 Debug.Log($"SkillDamage {_damage}");
             }
         }

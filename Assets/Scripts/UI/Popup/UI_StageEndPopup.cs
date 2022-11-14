@@ -60,7 +60,7 @@ public class UI_StageEndPopup : UI_Popup
         CheckGameResult();
         SetResultText();
 
-        Managers.Game.Monsters.Clear();
+        Managers.Game.Creatures.Clear();
         Managers.Game.LoadData();
 
         return true;
