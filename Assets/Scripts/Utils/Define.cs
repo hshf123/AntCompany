@@ -6,6 +6,7 @@ public class Define
 {
     public enum SkillType
     {
+        None,
         Range,
         Target,
         Debuff,
