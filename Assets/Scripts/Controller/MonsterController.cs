@@ -2,41 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour
+public class MonsterController : CreatureController
 {
     Monster monsterData;
-    int _maxHp;
-    int _hp;
-    int _attack;
-    float _speed;
 
-    public bool InSkillRange { get; private set; } = false;
-    float _checkTime = 0f;
-    float _coolTime = 1f;
-    bool _canAttack = true;
-    RectTransform _transform;
-    public Vector2 Position
-    {
-        get { return _transform.anchoredPosition; }
-        protected set
-        {
-            if (_transform.anchoredPosition == value)
-                return;
-
-            _transform.anchoredPosition = value;
-        }
-    }
     Animator _animator;
     UI_StagePopup _stage;
-    HpBar _hpBar;
 
-    protected enum MonsterState
-    {
-        Move,
-        Attack,
-    }
-    MonsterState _state;
-    protected MonsterState State
+    protected CreatureState State
     {
         get { return _state; }
         set
@@ -46,10 +19,10 @@ public class MonsterController : MonoBehaviour
 
             switch (value)
             {
-                case MonsterState.Move:
+                case CreatureState.Move:
                     _animator.Play("Monster_Walk");
                     break;
-                case MonsterState.Attack:
+                case CreatureState.Attack:
                     _animator.Play("Monster_Attack");
                     break;
             }
@@ -58,16 +31,14 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    void Start()
+    protected override void Init()
     {
-        _transform = GetComponent<RectTransform>();
+        base.Init();
+
         _animator = GetComponent<Animator>();
         _animator.Play("Monster_Walk");
         SetRandPosition();
-        State = MonsterState.Move;
-        _hpBar = Utils.FindChild(gameObject, "HP").gameObject.GetComponent<HpBar>();
-        if (_hpBar == null)
-            Debug.Log("Failed to find HPBar");
+        State = CreatureState.Move;
 
         if (Managers.Data.MonsterDict.TryGetValue((int)_stage.StageLevel, out monsterData) == false)
         {
@@ -76,21 +47,9 @@ public class MonsterController : MonoBehaviour
         }
 
         _maxHp = monsterData.MaxHp;
-        _hp = monsterData.Hp;
+        Hp = monsterData.Hp;
         _attack = monsterData.Attack;
         _speed = monsterData.Speed;
-    }
-
-    void Update()
-    {
-        if ((_checkTime += Time.deltaTime) >= _coolTime)
-        {
-            _canAttack = true;
-            _checkTime = 0;
-        }
-        else
-            _canAttack = false;
-        UpdateAnim();
     }
 
     void SetRandPosition()
@@ -102,11 +61,11 @@ public class MonsterController : MonoBehaviour
         Position = new Vector3(x, y);
     }
 
-    void UpdateAnim()
+    protected override void UpdateAnim()
     {
         if (Position.y <= -426f)
         {
-            State = MonsterState.Attack;
+            State = CreatureState.Attack;
             Position = new Vector2(Position.x, -426f);
             if (_canAttack)
             {
@@ -116,23 +75,9 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            State = MonsterState.Move;
+            State = CreatureState.Move;
             Position += new Vector2(0, -1f) * Time.deltaTime * _speed;
         }
-    }
-
-    public void OnDamaged(int damage)
-    {
-        _hp -= damage;
-        if (_hp <= 0)
-            _hp = 0;
-
-        float ratio = (float)_hp / _maxHp;
-        _hpBar.SetHpBar(ratio);
-        Managers.Sound.Play("Sound_PlayerAttacked");
-
-        if (_hp == 0 && gameObject != null)
-            OnDead();
     }
 
     public void SetStage(GameObject stage)
@@ -144,22 +89,10 @@ public class MonsterController : MonoBehaviour
         _stage = sp;
     }
 
-    void OnDead()
+    protected override void OnDead()
     {
         Managers.Resource.Destroy(gameObject);
         Managers.Game.Monsters.Remove(gameObject.GetComponent<MonsterController>());
         // TODO : º“∏Í ¿Ã∆Â∆Æ
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<RangeController>() != null)
-            InSkillRange = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.GetComponent<RangeController>() != null)
-            InSkillRange = false;
     }
 }
