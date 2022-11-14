@@ -12,12 +12,12 @@ public class CreatureController : MonoBehaviour
     protected CreatureState _state;
 
     protected int _maxHp;
-    protected float _speed;
+    public float Speed { get; set; }
     protected int _attack;
     public int Hp { get; protected set; }
 
     public bool InSkillRange { get; protected set; } = false;
-   
+
     protected float _checkTime = 0f;
     protected float _coolTime = 1f;
     protected bool _canAttack = true;

@@ -107,7 +107,6 @@ public class UI_InventoryPopup : UI_Popup
                     Debug.Log("Failed to find equipment list");
                     return;
                 }
-                // TODO : 아이콘 경로는 데이터에 저장
                 Image image = go.GetComponent<Image>();
                 image.sprite = Managers.Resource.Load<Sprite>(equipment.Path);
                 go.SetActive(true);

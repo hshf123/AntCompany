@@ -49,7 +49,7 @@ public class MonsterController : CreatureController
         _maxHp = monsterData.MaxHp;
         Hp = monsterData.Hp;
         _attack = monsterData.Attack;
-        _speed = monsterData.Speed;
+        Speed = monsterData.Speed;
     }
 
     void SetRandPosition()
@@ -76,7 +76,7 @@ public class MonsterController : CreatureController
         else
         {
             State = CreatureState.Move;
-            Position += new Vector2(0, -1f) * Time.deltaTime * _speed;
+            Position += new Vector2(0, -1f) * Time.deltaTime * Speed;
         }
     }
 

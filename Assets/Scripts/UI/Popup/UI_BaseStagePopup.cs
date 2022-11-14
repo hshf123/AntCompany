@@ -8,19 +8,19 @@ public class UI_BaseStagePopup : UI_Popup
     protected bool _isCoolDown1 = false;
     protected bool _isCoolDown2 = false;
     protected bool _isCoolDown3 = false;
-    protected bool _isCoolDown4 = false; 
+    protected bool _isCoolDown4 = false;
     protected bool _isStageEnd = false;
 
     enum Images
     {
         SkillButtonIcon1,
-        ButtonCoolTime1,
         SkillButtonIcon2,
-        ButtonCoolTime2,
         SkillButtonIcon3,
-        ButtonCoolTime3,
         SkillButtonIcon4,
-        ButtonCoolTime4
+        ButtonCoolTime1,
+        ButtonCoolTime2,
+        ButtonCoolTime3,
+        ButtonCoolTime4,
     }
 
     enum Buttons
@@ -59,6 +59,16 @@ public class UI_BaseStagePopup : UI_Popup
         Get<Button>((int)Buttons.SkillButton4).gameObject.BindEvent(OnClickSkillButton4);
         Get<GameObject>((int)GameObjects.Wall).GetComponent<HpBar>().SetHpBar(Managers.Game.TotalMaxHP);
         GetText((int)Texts.HpText).text = Managers.Game.TotalMaxHP.ToString();
+
+        for (int i = (int)Images.SkillButtonIcon1; i <= (int)Images.SkillButtonIcon4; i++)
+        {
+            Image image = Get<Image>(i);
+            Skill skill;
+            if (Managers.Game.Skills.TryGetValue(i, out skill))
+                image.sprite = Managers.Resource.Load<Sprite>(skill.Path);
+            else
+                image.gameObject.SetActive(false);
+        }
 
         Managers.Sound.Play("Sound_Battle", Define.Sound.Bgm);
         StartCoroutine(CheckGameTime());
@@ -248,32 +258,67 @@ public class UI_BaseStagePopup : UI_Popup
                 break;
             case Define.SkillType.Debuff:
                 {
+                    float duration = (skill as DebuffSkill).Duration;
                     int speed = (skill as DebuffSkill).Speed;
-                    OnDebuffSkill(speed);
+                    OnDebuffSkill(duration, speed);
                 }
                 break;
             case Define.SkillType.Buff:
                 {
+                    float duration = (skill as BuffSkill).Duration;
                     float attackSpeed = (skill as BuffSkill).AttackSpeed;
-                    OnBuffSkill(attackSpeed);
+                    OnBuffSkill(duration, attackSpeed);
                 }
                 break;
         }
     }
     protected void OnRangeSkill(int damage)
     {
+        Debug.Log($"Range Skill {damage}");
         Managers.Resource.Instantiate("Objects/Range", transform).GetComponent<RangeController>().SetDamage(damage);
     }
     protected void OnTargetSkill(int damage)
     {
-
+        Debug.Log($"Target Skill {damage}");
+        CreatureController cc = Managers.Game.Player.Target;
+        if (cc != null)
+            cc.OnDamaged(damage);
     }
-    protected void OnDebuffSkill(int speed)
+    protected void OnDebuffSkill(float duration, int speed)
     {
-
+        Debug.Log($"Debuff Skill Duration : {duration} / Speed : {speed}");
+        StartCoroutine(CoDebuffSkill(duration, speed));
     }
-    protected void OnBuffSkill(float attackSpeed)
+    protected void OnBuffSkill(float duration, float attackSpeed)
     {
+        Debug.Log($"Buff Skill Duration : {duration} / Attack Speed : {attackSpeed}");
+        StartCoroutine(CoBuffSkill(duration, attackSpeed));
+    }
 
+    protected IEnumerator CoDebuffSkill(float duration, int speed)
+    {
+        foreach (CreatureController cc in Managers.Game.Creatures)
+            cc.Speed -= speed;
+
+        while (duration >= 0f)
+        {
+            duration -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        foreach (CreatureController cc in Managers.Game.Creatures)
+            cc.Speed += speed;
+    }
+    protected IEnumerator CoBuffSkill(float duration, float attackSpeed)
+    {
+        Managers.Game.TotalAttackSpeed += attackSpeed;
+
+        while (duration >= 0f)
+        {
+            duration -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        Managers.Game.TotalAttackSpeed -= attackSpeed;
     }
 }

@@ -60,11 +60,13 @@ public class TargetSkill : Skill
 [Serializable]
 public class DebuffSkill : Skill
 {
+    public float Duration;
     public int Speed;
 }
 
 [Serializable]
 public class BuffSkill : Skill
 {
+    public float Duration;
     public float AttackSpeed;
 }

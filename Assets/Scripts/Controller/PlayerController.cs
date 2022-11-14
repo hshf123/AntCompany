@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     Animator _animator;
     GameObject _stage;
-    CreatureController _target;
+    public CreatureController Target { get; private set; }
     float _attackRange;
     float _checkTime = 0f;
     bool _canAttack = true;
@@ -46,16 +46,17 @@ public class PlayerController : MonoBehaviour
         State = PlayerState.IDLE;
         _stage = gameObject.transform.parent.gameObject;
         _attackRange = Screen.height;
+        Managers.Game.Player = this;
     }
 
     void Update()
     {
         _checkTime += Time.deltaTime;
         Patrol();
-        if (_target != null && _canAttack)
+        if (Target != null && _canAttack)
             AttackStart();
 
-        if (_target == null)
+        if (Target == null)
             State = PlayerState.IDLE;
     }
 
@@ -63,21 +64,21 @@ public class PlayerController : MonoBehaviour
     {
         if (Managers.Game.Creatures.Count == 0)
         {
-            _target = null;
+            Target = null;
             return;
         }
 
-        _target = Managers.Game.Creatures[0];
+        Target = Managers.Game.Creatures[0];
         foreach (CreatureController cc in Managers.Game.Creatures)
         {
-            if (_target != null)
+            if (Target != null)
             {
-                if (_target.transform.position.y >= cc.transform.position.y)
+                if (Target.transform.position.y >= cc.transform.position.y)
                 {
-                    if (_target.transform.position.y <= _attackRange)
-                        _target = cc;
+                    if (Target.transform.position.y <= _attackRange)
+                        Target = cc;
                     else
-                        _target = null;
+                        Target = null;
                 }
             }
         }
@@ -90,8 +91,8 @@ public class PlayerController : MonoBehaviour
             GameObject arrow = Managers.Resource.Instantiate("Objects/Arrow", _stage.transform);
             arrow.transform.position = gameObject.transform.position;
             _checkTime = 0;
-            if (_target != null)
-                arrow.GetComponent<ArrowController>().SetTarget(_target.transform.position);
+            if (Target != null)
+                arrow.GetComponent<ArrowController>().SetTarget(Target.transform.position);
             State = PlayerState.Attack;
             Managers.Sound.Play("Sound_AttackButton");
         }

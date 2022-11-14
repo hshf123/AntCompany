@@ -26,13 +26,11 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     Game_Manager _game = new Game_Manager();
     InventoryManager _inven = new InventoryManager();
-    ObjectManager _object = new ObjectManager();
     SkillSlotManager _skill = new SkillSlotManager();
 
     public static DataManager Data { get { return Instance._data; } }
     public static Game_Manager Game { get { return Instance._game; } }
     public static InventoryManager Inven { get { return Instance._inven; } }
-    public static ObjectManager Object { get { return Instance._object; } }
     public static SkillSlotManager Skill { get { return Instance._skill; } }
     #endregion
     void Start()
@@ -60,11 +58,6 @@ public class Managers : MonoBehaviour
 
             Application.targetFrameRate = 60; // 60«¡∑π¿”
         }
-    }
-
-    void Update()
-    {
-
     }
 
     public static void Clear()

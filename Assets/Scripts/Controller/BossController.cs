@@ -53,7 +53,7 @@ public class BossController : CreatureController
         _maxHp = _bossData.MaxHp;
         Hp = _bossData.Hp;
         _attack = _bossData.Attack;
-        _speed = _bossData.Speed;
+        Speed = _bossData.Speed;
 
         Managers.Game.Creatures.Add(this);
     }
@@ -94,7 +94,7 @@ public class BossController : CreatureController
         else
         {
             State = CreatureState.Move;
-            Position += new Vector2(0, -1f) * Time.deltaTime * _speed;
+            Position += new Vector2(0, -1f) * Time.deltaTime * Speed;
         }
     }
 
@@ -113,6 +113,4 @@ public class BossController : CreatureController
         //Managers.Game.Monsters.Remove(gameObject.GetComponent<MonsterController>());
         // TODO : º“∏Í ¿Ã∆Â∆Æ
     }
-
-    
 }

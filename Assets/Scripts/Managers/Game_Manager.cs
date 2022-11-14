@@ -25,6 +25,7 @@ public class Game_Manager
     public Dictionary<int, Equipment> Wearing { get; private set; } = new Dictionary<int, Equipment>();
 
     // in Game
+    public PlayerController Player { get; set; }
     public int TotalMaxHP { get; private set; } = 0;
     public int TotalHP { get; private set; } = 0;
     public float TotalAttackSpeed { get; set; } = 0;
@@ -70,11 +71,6 @@ public class Game_Manager
         TotalHP = HP;
 
         Save();
-    }
-
-    void Update()
-    {
-        // TODO
     }
 
     public void OnDamaged(int damage)
@@ -244,7 +240,7 @@ public class Game_Manager
         {
             save.Equipment.Add(equipment);
         }
-        
+
         foreach (Skill skill in Skills.Values)
         {
             save.Skill.Add(skill);

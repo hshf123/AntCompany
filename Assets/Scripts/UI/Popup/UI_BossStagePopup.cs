@@ -22,7 +22,7 @@ public class UI_BossStagePopup : UI_BaseStagePopup
         UpdateHp();
         UpdateBossStage();
     }
-    
+
     void UpdateBossStage()
     {
         if (_boss.Hp == 0)

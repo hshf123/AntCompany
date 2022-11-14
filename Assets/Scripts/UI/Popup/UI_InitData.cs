@@ -26,7 +26,6 @@ public class UI_InitData : UI_Popup
 
     void OnCheckButton()
     {
-        // TODO : 모든 데이터 날리고 새로 시작
         Debug.Log("데이터 초기화");
         Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
         Managers.UI.ClosePopupUI();
