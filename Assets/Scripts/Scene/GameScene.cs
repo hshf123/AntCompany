@@ -10,6 +10,7 @@ public class GameScene : BaseScene
             return false;
 
         Managers.UI.ShowPopupUI<UI_TitlePopup>();
+        Managers.UI.ShowSceneUI<UI_MainScene>();
 
         return true;
     }
