@@ -95,6 +95,7 @@ public class UI_PlayerInfoPopup : UI_Popup
     {
         Get<GameObject>(_currentBox).SetActive(false);
         Get<GameObject>(ChangeTextBox()).SetActive(true);
+        Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
     }
     void OnClickOKButton()
     {

@@ -37,7 +37,7 @@ public class ArrowController : MonoBehaviour
             return;
         }
 
-        gameObject.transform.position += _dir * _speed;
+        gameObject.transform.position += _dir * _speed * Time.deltaTime;
     }
 
     bool CheckPosRange(Vector3 pos)

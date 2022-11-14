@@ -36,6 +36,10 @@ public class UI_PlayPopup : UI_Popup
         if (base.Init() == false)
             return false;
 
+        UI_MainScene mainUI = transform.parent.gameObject.FindChild("UI_MainScene").GetComponent<UI_MainScene>();
+        if (mainUI != null)
+            mainUI.ButtonDeactivate();
+
         Bind<Button>(typeof(Buttons));
         BindText(typeof(Texts));
         Bind<GameObject>(typeof(GameObjects));

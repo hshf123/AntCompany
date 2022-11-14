@@ -92,8 +92,8 @@ public class Game_Manager
         {
             Exp -= MaxExp;
             Level += 1;
-            if (Level >= 5)
-                Level = 5;
+            if (Level >= Managers.Data.PlayerDict.Count)
+                Level = Managers.Data.PlayerDict.Count;
             if (Exp >= MaxExp)
                 CheckLevelUp();
         }

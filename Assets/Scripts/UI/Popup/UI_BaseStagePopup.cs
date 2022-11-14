@@ -10,6 +10,7 @@ public class UI_BaseStagePopup : UI_Popup
     protected bool _isCoolDown3 = false;
     protected bool _isCoolDown4 = false;
     protected bool _isStageEnd = false;
+    protected bool _stop = false;
 
     enum Images
     {
@@ -46,6 +47,10 @@ public class UI_BaseStagePopup : UI_Popup
     {
         if (base.Init() == false)
             return false;
+
+        UI_MainScene mainUI = transform.parent.gameObject.FindChild("UI_MainScene").GetComponent<UI_MainScene>();
+        if(mainUI!=null)
+            mainUI.ButtonActivate();
 
         Time.timeScale = 1;
 

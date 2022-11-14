@@ -34,6 +34,5 @@ public class UI_SkillSelectPopup : UI_Popup
     void OnClickCancelButton()
     {
         Managers.UI.ClosePopupUI();
-        Managers.UI.Root.FindChild("UI_InventoryPopup").GetComponent<UI_InventoryPopup>().RefreshUI();
     }
 }
