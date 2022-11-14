@@ -41,6 +41,7 @@ public class UI_SkillPopup : UI_Popup
         {
             GameObject button = Managers.Resource.Instantiate("UI/SubItem/SkillListButton", list.transform).gameObject;
             button.FindChild("SkillButtonIcon").SetActive(false);
+            button.FindChild("SkillButtonLockIcon").SetActive(true);
             _buttons.Add(i, button);
         }
         GameObject skillSet = Utils.FindChild(gameObject, "SkillSet");
@@ -52,23 +53,35 @@ public class UI_SkillPopup : UI_Popup
             _skillButtons.Add(i + 1, icon);
         }
 
-        #region 소지한 스킬 리스트 설정
-        int skillCount = 0;
+        #region 스킬 리스트 설정
+        int level = Managers.Game.Level / 4;
+        int row = 0;
+        int col = 0;
         foreach (Skill skill in Managers.Data.SkillDict.Values)
         {
-            GameObject icon = _buttons[skillCount].FindChild("SkillButtonIcon");
-            icon.SetActive(true);
-            _buttons[skillCount].BindEvent(() =>
+            int skillCount = (row * 4) + col;
+            if (col <= level)
             {
-                Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
-                Managers.Skill.SelectedSkill = skill;
-                Debug.Log("Click");
-            });
+                GameObject icon = _buttons[skillCount].FindChild("SkillButtonIcon");
+                _buttons[skillCount].FindChild("SkillButtonLockIcon").SetActive(false);
+                icon.SetActive(true);
+                Image image = icon.GetComponent<Image>();
+                image.sprite = Managers.Resource.Load<Sprite>(skill.Path);
+                _buttons[skillCount].BindEvent(() =>
+                {
+                    Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+                    Managers.Skill.SelectedSkill = skill;
+                    Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+                    Debug.Log("Click");
+                });
+            }
 
-            Image image = icon.GetComponent<Image>();
-            image.sprite = Managers.Resource.Load<Sprite>(skill.Path);
-
-            skillCount++;
+            col++;
+            if (col == 4)
+            {
+                col = 0;
+                row++;
+            }
         }
         #endregion
 
@@ -97,7 +110,6 @@ public class UI_SkillPopup : UI_Popup
                     Debug.Log("Failed to find skill list");
                     return;
                 }
-                // TODO : 아이콘 경로는 데이터에 저장
                 Image image = go.GetComponent<Image>();
                 image.sprite = Managers.Resource.Load<Sprite>(skill.Path);
                 go.SetActive(true);

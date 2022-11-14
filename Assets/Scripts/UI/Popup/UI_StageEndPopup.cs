@@ -46,6 +46,8 @@ public class UI_StageEndPopup : UI_Popup
         if (base.Init() == false)
             return false;
 
+        Managers.Pool.Clear();
+
         Bind<GameObject>(typeof(GameObjects));
         BindText(typeof(Texts));
         Bind<Button>(typeof(Buttons));

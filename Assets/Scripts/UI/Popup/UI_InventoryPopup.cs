@@ -59,26 +59,40 @@ public class UI_InventoryPopup : UI_Popup
         {
             GameObject button = Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", list.transform).gameObject;
             button.FindChild("EquipmentButtonIcon").SetActive(false);
+            button.FindChild("EquipmentButtonLockIcon").SetActive(true);
             _buttons.Add(i, button);
         }
 
         #region 아이템 리스트 버튼 이벤트 설정
-        int equipmentCount = 0;
+        int level = Managers.Game.Level / 4;
+        int row = 0;
+        int col = 0;
         foreach (Equipment equipment in Managers.Data.EquipmentDict.Values)
         {
-            GameObject icon = _buttons[equipmentCount].FindChild("EquipmentButtonIcon");
-            icon.SetActive(true);
-            _buttons[equipmentCount].BindEvent(() =>
+            int equipmentCount = (row * 4) + col;
+            if (col <= level)
             {
-                Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
-                Managers.Inven.SelectedItem = equipment;
-                Debug.Log("Click");
-            });
+                GameObject icon = _buttons[equipmentCount].FindChild("EquipmentButtonIcon");
+                _buttons[equipmentCount].FindChild("EquipmentButtonLockIcon").SetActive(false);
+                icon.SetActive(true);
+                _buttons[equipmentCount].BindEvent(() =>
+                {
+                    Managers.UI.ShowPopupUI<UI_EquipmentPopup>();
+                    Managers.Inven.SelectedItem = equipment;
+                    Managers.Sound.Play("Sound_MainButton", Define.Sound.Effect);
+                    Debug.Log("Click");
+                });
 
-            Image image = icon.GetComponent<Image>();
-            image.sprite = Managers.Resource.Load<Sprite>(equipment.Path);
+                Image image = icon.GetComponent<Image>();
+                image.sprite = Managers.Resource.Load<Sprite>(equipment.Path);
+            }
 
-            equipmentCount++;
+            col++;
+            if (col == 4)
+            {
+                col = 0;
+                row++;
+            }
         }
         #endregion
 

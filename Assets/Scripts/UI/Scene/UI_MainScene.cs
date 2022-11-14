@@ -82,12 +82,10 @@ public class UI_MainScene : UI_Scene
 
     public void ButtonActivate()
     {
-        Get<Button>((int)Buttons.PlayerInfoButton).gameObject.SetActive(true);
         Get<Button>((int)Buttons.PauseButton).gameObject.SetActive(true);
     }
     public void ButtonDeactivate()
     {
-        Get<Button>((int)Buttons.PlayerInfoButton).gameObject.SetActive(false);
         Get<Button>((int)Buttons.PauseButton).gameObject.SetActive(false);
     }
 }

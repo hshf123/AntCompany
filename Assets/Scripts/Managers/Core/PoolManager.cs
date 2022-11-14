@@ -76,7 +76,7 @@ public class PoolManager
         }
     }
 
-    public void CreatePool(GameObject original, int count = 5)
+    public void CreatePool(GameObject original, int count = 20)
     {
         Pool pool = new Pool();
         pool.Init(original, count);
