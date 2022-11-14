@@ -7,6 +7,8 @@ using static System.Net.WebRequestMethods;
 
 public class RangeController : MonoBehaviour
 {
+    int _damage;
+
     void Start()
     {
         gameObject.BindEvent(MoveRange, Define.UIEvent.Pressed);
@@ -25,8 +27,8 @@ public class RangeController : MonoBehaviour
         {
             if (Managers.Game.Boss.InSkillRange == true)
             {
-                Managers.Game.Boss.OnDamaged(20);
-                Debug.Log("SkillDamage 20");
+                Managers.Game.Boss.OnDamaged(_damage);
+                Debug.Log($"SkillDamage {_damage}");
             }
         }
 
@@ -35,11 +37,16 @@ public class RangeController : MonoBehaviour
             MonsterController mc = Managers.Game.Monsters[i];
             if (mc.InSkillRange && mc != null)
             {
-                Managers.Game.Monsters[i].OnDamaged(20);
-                Debug.Log("SkillDamage 20");
+                Managers.Game.Monsters[i].OnDamaged(_damage);
+                Debug.Log($"SkillDamage {_damage}");
             }
         }
 
         Managers.Resource.Destroy(gameObject);
+    }
+
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
     }
 }

@@ -37,13 +37,7 @@ public class UI_InventoryPopup : UI_Popup
         Get<Button>((int)Buttons.StageAndBossButton).gameObject.BindEvent(OnClickStageAndBossButton);
         Get<Button>((int)Buttons.InventoryWindowButton).gameObject.BindEvent(OnClickInventoryWindowButton);
 
-        GameObject list = Utils.FindChild(gameObject, "EquipmentList");
-        for (int i = 0; i < 16; i++)
-        {
-            GameObject button = Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", list.transform).gameObject;
-            button.FindChild("EquipmentButtonIcon").SetActive(false);
-            _buttons.Add(i, button);
-        }
+        // 장착한 아이템 리스트
         GameObject equipmentSet = Utils.FindChild(gameObject, "EquipmentSet");
         for (int i = 0; i < 4; i++)
         {
@@ -51,9 +45,24 @@ public class UI_InventoryPopup : UI_Popup
             GameObject icon = button.FindChild("EquipmentButtonIcon").gameObject;
             icon.SetActive(false);
             _wearingButtons.Add(i + 1, icon);
+            button.BindEvent(() =>
+            {
+                Equipment equipment;
+                if (Managers.Game.Wearing.TryGetValue(i + 1, out equipment))
+                    Managers.Game.ClearEquipment(i);
+            });
         }
 
-        #region 소지한 아이템 리스트 설정
+        // 아이템 리스트
+        GameObject list = Utils.FindChild(gameObject, "EquipmentList");
+        for (int i = 0; i < 16; i++)
+        {
+            GameObject button = Managers.Resource.Instantiate("UI/SubItem/EquipmentListButton", list.transform).gameObject;
+            button.FindChild("EquipmentButtonIcon").SetActive(false);
+            _buttons.Add(i, button);
+        }
+
+        #region 아이템 리스트 버튼 이벤트 설정
         int equipmentCount = 0;
         foreach (Equipment equipment in Managers.Data.EquipmentDict.Values)
         {

@@ -90,7 +90,7 @@ public class UI_SkillPopup : UI_Popup
             Skill skill;
             if (Managers.Game.Skills.TryGetValue(i, out skill))
             {
-                // 장착한 장비가 있을 경우
+                // 장착한 스킬이 있을 경우
                 GameObject go;
                 if (_skillButtons.TryGetValue(i + 1, out go) == false)
                 {
