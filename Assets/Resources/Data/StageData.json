@@ -1,0 +1,20 @@
+{
+  "stages": [
+    {
+      "StageLevel": "1",
+      "MonsterCount": "5"
+    },
+	{
+      "StageLevel": "2",
+      "MonsterCount": "10"
+    },
+	{
+      "StageLevel": "3",
+      "MonsterCount": "15"
+    },
+	{
+      "StageLevel": "4",
+      "MonsterCount": "20"
+    }
+  ]
+}

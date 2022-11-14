@@ -1,0 +1,122 @@
+{
+	"attacks": [
+		{
+			"Id" : 1,
+			"Type" : 1,
+			"Name" : "공격력 증가 아이템1",
+			"Path" : "Sprites/Collection/icon_strength2",
+			"Attack" : 20
+		},
+		{
+			"Id" : 5,
+			"Type" : 1,
+			"Name" : "공격력 증가 아이템2",
+			"Path" : "Sprites/Collection/icon_strength2",
+			"Attack" : 22
+		},
+		{
+			"Id" : 9,
+			"Type" : 1,
+			"Name" : "공격력 증가 아이템3",
+			"Path" : "Sprites/Collection/icon_strength2",
+			"Attack" : 24
+		},
+		{
+			"Id" : 13,
+			"Type" : 1,
+			"Name" : "공격력 증가 아이템4",
+			"Path" : "Sprites/Collection/icon_strength2",
+			"Attack" : 26
+		}
+	],
+	"attackSpeeds": [
+		{
+			"Id" : 2,
+			"Type" : 2,
+			"Name" : "공속 증가 아이템1",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"AttackSpeed" : 1
+		},
+		{
+			"Id" : 6,
+			"Type" : 2,
+			"Name" : "공속 증가 아이템2",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"AttackSpeed" : 1.1
+		},
+		{
+			"Id" : 10,
+			"Type" : 2,
+			"Name" : "공속 증가 아이템3",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"AttackSpeed" : 1.2
+		},
+		{
+			"Id" : 14,
+			"Type" : 2,
+			"Name" : "공속 증가 아이템4",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"AttackSpeed" : 1.3
+		}
+	],
+	"maxHps": [
+		{
+			"Id" : 3,
+			"Type" : 3,
+			"Name" : "체력 증가 아이템1",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"MaxHp" : 500
+		},
+		{
+			"Id" : 7,
+			"Type" : 3,
+			"Name" : "체력 증가 아이템2",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"MaxHp" : 550
+		},
+		{
+			"Id" : 11,
+			"Type" : 3,
+			"Name" : "체력 증가 아이템3",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"MaxHp" : 600
+		},
+		{
+			"Id" : 15,
+			"Type" : 3,
+			"Name" : "체력 증가 아이템4",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"MaxHp" : 650
+		}
+	],
+	"coolTimeReduces": [
+		{
+			"Id" : 4,
+			"Type" : 4,
+			"Name" : "쿨타임 감소 아이템1",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTimeReduce" : "0.2f"
+		},
+		{
+			"Id" : 8,
+			"Type" : 4,
+			"Name" : "쿨타임 감소 아이템2",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTimeReduce" : "0.25f"
+		},
+		{
+			"Id" : 12,
+			"Type" : 4,
+			"Name" : "쿨타임 감소 아이템3",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTimeReduce" : "0.3f"
+		},
+		{
+			"Id" : 16,
+			"Type" : 4,
+			"Name" : "쿨타임 감소 아이템4",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTimeReduce" : "0.35f"
+		}
+	]
+}

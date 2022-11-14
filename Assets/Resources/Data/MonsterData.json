@@ -1,0 +1,32 @@
+{
+  "monsters": [
+    {
+      "StageLevel": "1",
+      "MaxHp": "100",
+      "Hp": "100",
+      "Attack": "10",
+      "Speed": "200"
+    },
+    {
+      "StageLevel": "2",
+      "MaxHp": "110",
+      "Hp": "110",
+      "Attack": "11",
+      "Speed": "205"
+    },
+    {
+      "StageLevel": "3",
+      "MaxHp": "120",
+      "Hp": "120",
+      "Attack": "12",
+      "Speed": "210"
+    },
+    {
+      "StageLevel": "4",
+      "MaxHp": "130",
+      "Hp": "130",
+      "Attack": "13",
+      "Speed": "215"
+    }
+  ]
+}

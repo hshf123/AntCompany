@@ -1,0 +1,109 @@
+{
+  "players": [
+    {
+      "Level": "1",
+      "MaxHp": "1500",
+      "Hp": "1500",
+      "Attack": "10",
+	  "AttackSpeed":"1"
+    },
+    {
+      "Level": "2",
+      "MaxHp": "2000",
+      "Hp": "2000",
+      "Attack": "15",
+	  "AttackSpeed":"1.2"
+    },
+	{
+      "Level": "3",
+      "MaxHp": "2500",
+      "Hp": "2500",
+      "Attack": "20",
+	  "AttackSpeed":"1.4"
+    },
+	{
+      "Level": "4",
+      "MaxHp": "3000",
+      "Hp": "3000",
+      "Attack": "25",
+	  "AttackSpeed":"1.6"
+    },
+	{
+      "Level": "5",
+      "MaxHp": "3500",
+      "Hp": "3500",
+      "Attack": "30",
+	  "AttackSpeed":"1.8"
+    },
+	{
+      "Level": "6",
+      "MaxHp": "4000",
+      "Hp": "4000",
+      "Attack": "35",
+	  "AttackSpeed":"2"
+    },
+	{
+      "Level": "7",
+      "MaxHp": "4500",
+      "Hp": "4500",
+      "Attack": "40",
+	  "AttackSpeed":"2.2"
+    },
+	{
+      "Level": "8",
+      "MaxHp": "5000",
+      "Hp": "5000",
+      "Attack": "45",
+	  "AttackSpeed":"2.4"
+    },
+	{
+      "Level": "9",
+      "MaxHp": "5500",
+      "Hp": "5500",
+      "Attack": "55",
+	  "AttackSpeed":"2.6"
+    },
+	{
+      "Level": "10",
+      "MaxHp": "6000",
+      "Hp": "6000",
+      "Attack": "60",
+	  "AttackSpeed":"2.8"
+    },
+	{
+      "Level": "11",
+      "MaxHp": "6500",
+      "Hp": "6500",
+      "Attack": "65",
+	  "AttackSpeed":"3"
+    },
+	{
+      "Level": "12",
+      "MaxHp": "7000",
+      "Hp": "7000",
+      "Attack": "70",
+	  "AttackSpeed":"3.2"
+    },
+	{
+      "Level": "13",
+      "MaxHp": "7500",
+      "Hp": "7500",
+      "Attack": "75",
+	  "AttackSpeed":"3.4"
+    },
+	{
+      "Level": "14",
+      "MaxHp": "8000",
+      "Hp": "8000",
+      "Attack": "80",
+	  "AttackSpeed":"3.6"
+    },
+	{
+      "Level": "15",
+      "MaxHp": "8500",
+      "Hp": "8500",
+      "Attack": "85",
+	  "AttackSpeed":"3.8"
+    }
+  ]
+}

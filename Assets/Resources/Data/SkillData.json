@@ -1,0 +1,146 @@
+{
+	"ranges": [
+		{
+			"Id" : 1,
+			"Type" : 1,
+			"Name" : "범위 스킬1",
+			"Path" : "Sprites/Main/Common/icon_notice",
+			"CoolTime" : 8,
+			"Damage" : 20
+		},
+		{
+			"Id" : 5,
+			"Type" : 1,
+			"Name" : "범위 스킬2",
+			"Path" : "Sprites/Main/Common/icon_notice",
+			"CoolTime" : 7,
+			"Damage" : 22
+		},
+		{
+			"Id" : 9,
+			"Type" : 1,
+			"Name" : "범위 스킬13",
+			"Path" : "Sprites/Main/Common/icon_notice",
+			"CoolTime" : 6,
+			"Damage" : 24
+		},
+		{
+			"Id" : 13,
+			"Type" : 1,
+			"Name" : "범위 스킬4",
+			"Path" : "Sprites/Main/Common/icon_notice",
+			"CoolTime" : 5,
+			"Damage" : 26
+		}
+	],
+	"targets": [
+		{
+			"Id" : 2,
+			"Type" : 2,
+			"Name" : "타겟 스킬1",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"CoolTime" : 12,
+			"Damage" : 40
+		},
+		{
+			"Id" : 6,
+			"Type" : 2,
+			"Name" : "타겟 스킬2",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"CoolTime" : 11,
+			"Damage" : 45
+		},
+		{
+			"Id" : 10,
+			"Type" : 2,
+			"Name" : "타겟 스킬3",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"CoolTime" : 10,
+			"Damage" : 50
+		},
+		{
+			"Id" : 14,
+			"Type" : 2,
+			"Name" : "타겟 스킬4",
+			"Path" : "Sprites/Icon/icon_attack_speed",
+			"CoolTime" : 9,
+			"Damage" : 55
+		}
+	],
+	"debuffs": [
+		{
+			"Id" : 3,
+			"Type" : 3,
+			"Name" : "디버프 스킬1",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"CoolTime" : 10,
+			"Duration" : 2,
+			"Speed" : 80
+		},
+		{
+			"Id" : 7,
+			"Type" : 3,
+			"Name" : "디버프 스킬2",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"CoolTime" : 9,
+			"Duration" : 2.2,
+			"Speed" : 90
+		},
+		{
+			"Id" : 11,
+			"Type" : 3,
+			"Name" : "디버프 스킬3",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"CoolTime" : 8,
+			"Duration" : 2.4,
+			"Speed" : 100
+		},
+		{
+			"Id" : 15,
+			"Type" : 3,
+			"Name" : "디버프 스킬4",
+			"Path" : "Sprites/Collection/icon_heart2",
+			"CoolTime" : 7,
+			"Duration" : 2.6,
+			"Speed" : 110
+		}
+	],
+	"buffs": [
+		{
+			"Id" : 4,
+			"Type" : 4,
+			"Name" : "버프 스킬1",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTime" : 10,
+			"Duration" : 2,
+			"AttackSpeed" : 0.5
+		},
+		{
+			"Id" : 8,
+			"Type" : 4,
+			"Name" : "버프 스킬2",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTime" : 9,
+			"Duration" : 2.2,
+			"AttackSpeed" : 0.7
+		},
+		{
+			"Id" : 12,
+			"Type" : 4,
+			"Name" : "버프 스킬3",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTime" : 8,
+			"Duration" : 2.4,
+			"AttackSpeed" : 0.9
+		},
+		{
+			"Id" : 16,
+			"Type" : 4,
+			"Name" : "버프 스킬4",
+			"Path" : "Sprites/Collection/icon_luck2",
+			"CoolTime" : 7,
+			"Duration" : 2.6,
+			"AttackSpeed" : 1.1
+		}
+	]
+}

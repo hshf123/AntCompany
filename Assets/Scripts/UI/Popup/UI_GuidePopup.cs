@@ -37,6 +37,8 @@ public class UI_GuidePopup : UI_Popup
             Get<GameObject>(i).SetActive(false);
         }
 
+        GetText((int)Texts.GuideText).text = "스테이지를 클리어하고 \n 레벨을 올리세요!";
+
         return true;
     }
 
@@ -57,10 +59,19 @@ public class UI_GuidePopup : UI_Popup
         switch (_currentPage)
         {
             case (int)GameObjects.Intro2:
-                GetText((int)Texts.GuideText).text = "첫 회사는 설레! 너무 행복한 것 같아 \n 열심히 회사를 다녀서 부자가 될 거야!";
+                GetText((int)Texts.GuideText).text = "레벨을 올리고 \n 더 강력한 스킬을 사용하세요!";
                 break;
             case (int)GameObjects.Intro3:
-                GetText((int)Texts.GuideText).text = "앞으로 어떤일이 벌어지게 될까?";
+                GetText((int)Texts.GuideText).text = "레벨을 올리고 \n 더 강력한 장비를 사용하세요!";
+                break;
+            case (int)GameObjects.Guide1:
+                GetText((int)Texts.GuideText).text = "보스를 물리쳐보세요!";
+                break;
+            case (int)GameObjects.Guide2:
+                GetText((int)Texts.GuideText).text = "승리하여 보상을 획득하세요!";
+                break;
+            case (int)GameObjects.Guide3:
+                GetText((int)Texts.GuideText).text = "정보를 확인하며 플레이해보세요!";
                 break;
             default:
                 GetText((int)Texts.GuideText).gameObject.SetActive(false);
