@@ -203,6 +203,7 @@ public class UI_BaseStagePopup : UI_Popup
             yield return new WaitForFixedUpdate();
         }
 
+        Get<Image>((int)Images.ButtonCoolTime1).fillAmount = 0;
         _isCoolDown1 = false;
     }
     protected IEnumerator CoSkillCoolTime2(float seconds)
@@ -216,6 +217,7 @@ public class UI_BaseStagePopup : UI_Popup
             yield return new WaitForFixedUpdate();
         }
 
+        Get<Image>((int)Images.ButtonCoolTime1).fillAmount = 0;
         _isCoolDown2 = false;
     }
     protected IEnumerator CoSkillCoolTime3(float seconds)
@@ -229,6 +231,7 @@ public class UI_BaseStagePopup : UI_Popup
             yield return new WaitForFixedUpdate();
         }
 
+        Get<Image>((int)Images.ButtonCoolTime1).fillAmount = 0;
         _isCoolDown3 = false;
     }
     protected IEnumerator CoSkillCoolTime4(float seconds)
@@ -242,6 +245,7 @@ public class UI_BaseStagePopup : UI_Popup
             yield return new WaitForFixedUpdate();
         }
 
+        Get<Image>((int)Images.ButtonCoolTime1).fillAmount = 0;
         _isCoolDown4 = false;
     }
 

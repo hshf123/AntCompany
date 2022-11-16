@@ -130,7 +130,8 @@ public class Game_Manager
                 TotalHP += maxHp;
                 break;
             case Define.EquipmentType.CoolTimeReduce:
-                // TODO 쿨타임 감소 적용
+                float coolTimeReduce = 1 - (equipment as CoolTimeReduceEquipment).CoolTimeReduce;
+                ReduceCoolTime(coolTimeReduce);
                 break;
         }
     }
@@ -158,7 +159,8 @@ public class Game_Manager
                 TotalHP -= maxHp;
                 break;
             case Define.EquipmentType.CoolTimeReduce:
-                // TODO 쿨타임 감소 적용
+                float coolTimeReduce = 1 - (equipment as CoolTimeReduceEquipment).CoolTimeReduce;
+                RollbackCoolTime(coolTimeReduce);
                 break;
         }
     }
@@ -220,6 +222,26 @@ public class Game_Manager
             case Define.SkillType.Buff:
                 //(skill as BuffSkill);
                 break;
+        }
+    }
+    void ReduceCoolTime(float coolTimeReduce)
+    {
+        foreach(Skill skill in Skills.Values)
+        {
+            Debug.Log("ReduceCoolTime");
+            Debug.Log($"{skill.Name} Original CoolTime : {skill.CoolTime}");
+            skill.CoolTime *= coolTimeReduce;
+            Debug.Log($"{skill.Name} Reduce CoolTime : {skill.CoolTime}");
+        }
+    }
+    void RollbackCoolTime(float coolTimeReduce)
+    {
+        foreach (Skill skill in Skills.Values)
+        {
+            Debug.Log("RollbackCoolTime");
+            Debug.Log($"{skill.Name} Reduce CoolTime : {skill.CoolTime}");
+            skill.CoolTime /= coolTimeReduce;
+            Debug.Log($"{skill.Name} Original CoolTime : {skill.CoolTime}");
         }
     }
 
@@ -289,42 +311,6 @@ public class Game_Manager
         TotalMaxHP += MaxHP;
         TotalHP = TotalMaxHP;
 
-        if (save.Equipment.Count > 0)
-        {
-            int equipCount = 0;
-            foreach (Equipment equipment in save.Equipment)
-            {
-                Define.EquipmentType type = (Define.EquipmentType)equipment.Type;
-                switch (type)
-                {
-                    case Define.EquipmentType.Attack:
-                        {
-                            Equipment equip;
-                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(equipCount, equip);
-                        }
-                        break;
-                    case Define.EquipmentType.AttackSpeed:
-                        {
-                            Equipment equip;
-                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(equipCount, equip);
-                        }
-                        break;
-                    case Define.EquipmentType.MaxHp:
-                        {
-                            Equipment equip;
-                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(equipCount, equip);
-                        }
-                        break;
-                    case Define.EquipmentType.CoolTimeReduce:
-                        // TODO 쿨타임 감소 적용
-                        break;
-                }
-                equipCount++;
-            }
-        }
         if (save.Skill.Count > 0)
         {
             int skillCount = 0;
@@ -363,6 +349,46 @@ public class Game_Manager
                         break;
                 }
                 skillCount++;
+            }
+        }
+        if (save.Equipment.Count > 0)
+        {
+            int equipCount = 0;
+            foreach (Equipment equipment in save.Equipment)
+            {
+                Define.EquipmentType type = (Define.EquipmentType)equipment.Type;
+                switch (type)
+                {
+                    case Define.EquipmentType.Attack:
+                        {
+                            Equipment equip;
+                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                                SelectEquipment(equipCount, equip);
+                        }
+                        break;
+                    case Define.EquipmentType.AttackSpeed:
+                        {
+                            Equipment equip;
+                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                                SelectEquipment(equipCount, equip);
+                        }
+                        break;
+                    case Define.EquipmentType.MaxHp:
+                        {
+                            Equipment equip;
+                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                                SelectEquipment(equipCount, equip);
+                        }
+                        break;
+                    case Define.EquipmentType.CoolTimeReduce:
+                        {
+                            Equipment equip;
+                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                                SelectEquipment(equipCount, equip);
+                        }
+                        break;
+                }
+                equipCount++;
             }
         }
 
