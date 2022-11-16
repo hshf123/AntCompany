@@ -38,11 +38,6 @@ public class DataManager
         TextAsset json = Managers.Resource.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(json.text);
     }
-    Loader LoadJson<Loader>(string path)
-    {
-        TextAsset json = Managers.Resource.Load<TextAsset>($"Data/{path}");
-        return JsonUtility.FromJson<Loader>(json.text);
-    }
 
     public void Save(SaveData save)
     {
