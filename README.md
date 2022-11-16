@@ -3,10 +3,10 @@
 포트폴리오 용도로 제작된 게임입니다!
 
 * 목록
-  * 전체적인 프레임 워크
-  * 데이터 구조
-  * 게임 진행 방식
-  * 기타
+  * [전체적인 프레임 워크](https://github.com/hshf123/MobileGame/edit/main/README.md#%EC%A0%84%EC%B2%B4%EC%A0%81%EC%9D%B8-%ED%94%84%EB%A0%88%EC%9E%84-%EC%9B%8C%ED%81%AC)
+  * [데이터 구조](https://github.com/hshf123/MobileGame/edit/main/README.md#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B5%AC%EC%A1%B0)
+  * [게임 진행 방식](https://github.com/hshf123/MobileGame/edit/main/README.md#%EA%B2%8C%EC%9E%84-%EC%A7%84%ED%96%89-%EB%B0%A9%EC%8B%9D)
+  * [기타](https://github.com/hshf123/MobileGame/edit/main/README.md#%EA%B8%B0%ED%83%80)
 
 ## 전체적인 프레임 워크
 기반이 되는 프레임 워크는 [Rookiss님의 인프런 강의 C#과 유니티로 만드는 mmorpg part3](https://www.inflearn.com/course/mmorpg-%EC%9C%A0%EB%8B%88%ED%8B%B0/dashboard)를 토대로 만들었습니다.
