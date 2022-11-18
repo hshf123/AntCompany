@@ -7,15 +7,15 @@ using static UnityEditor.Progress;
 public class InventoryManager
 {
     // ½½·Ô¹øÈ£ 1~16
-    public Dictionary<Define.EquipmentType, Equipment> Items { get; } = new Dictionary<Define.EquipmentType, Equipment>();
+    public Dictionary<int, Equipment> Items { get; } = new Dictionary<int, Equipment>();
     public Equipment SelectedItem { get; set; } = null;
 
     public void Add(Equipment item)
     {
-        Items.Add((Define.EquipmentType)item.Id, item);
+        Items.Add(item.Id, item);
     }
 
-    public Equipment Get(Define.EquipmentType id)
+    public Equipment Get(int id)
     {
         Equipment item = null;
         Items.TryGetValue(id, out item);

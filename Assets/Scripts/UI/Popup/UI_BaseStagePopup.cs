@@ -106,7 +106,7 @@ public class UI_BaseStagePopup : UI_Popup
             playTime -= 1;
         }
         if (playTime == 0)
-            Managers.Game.OnDamaged(999999);
+            StageEnd();
     }
 
     protected void StageEnd()

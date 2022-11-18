@@ -115,25 +115,6 @@ public class Game_Manager
         }
         Wearing.Add(slot, equipment);
         Managers.Inven.SelectedItem = null;
-
-        switch ((Define.EquipmentType)equipment.Type)
-        {
-            case Define.EquipmentType.Attack:
-                TotalAttack += (equipment as AttackEquipment).Attack;
-                break;
-            case Define.EquipmentType.AttackSpeed:
-                TotalAttackSpeed += (equipment as AttackSpeedEquipment).AttackSpeed;
-                break;
-            case Define.EquipmentType.MaxHp:
-                int maxHp = (equipment as MaxHpEquipment).MaxHp;
-                TotalMaxHP += maxHp;
-                TotalHP += maxHp;
-                break;
-            case Define.EquipmentType.CoolTimeReduce:
-                float coolTimeReduce = 1 - (equipment as CoolTimeReduceEquipment).CoolTimeReduce;
-                ReduceCoolTime(coolTimeReduce);
-                break;
-        }
     }
     public void ClearEquipment(int slot)
     {
@@ -181,22 +162,6 @@ public class Game_Manager
         }
         Skills.Add(slot, skill);
         Managers.Skill.SelectedSkill = null;
-
-        switch ((Define.SkillType)skill.Type)
-        {
-            case Define.SkillType.Range:
-                //(skill as RangeSkill).Damage;
-                break;
-            case Define.SkillType.Target:
-                //(skill as TargetSkill);
-                break;
-            case Define.SkillType.Debuff:
-                //(skill as DebuffSkill);
-                break;
-            case Define.SkillType.Buff:
-                //(skill as BuffSkill);
-                break;
-        }
     }
     public void ClearSkill(int slot)
     {

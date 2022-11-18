@@ -6,15 +6,15 @@ using UnityEngine;
 public class SkillSlotManager
 {
     // ½½·Ô¹øÈ£ 1~16
-    public Dictionary<Define.SkillType, Skill> Skills { get; } = new Dictionary<Define.SkillType, Skill>();
+    public Dictionary<int, Skill> Skills { get; } = new Dictionary<int, Skill>();
     public Skill SelectedSkill { get; set; } = null;
 
     public void Add(Skill skill)
     {
-        Skills.Add((Define.SkillType)skill.Id, skill);
+        Skills.Add(skill.Id, skill);
     }
 
-    public Skill Get(Define.SkillType id)
+    public Skill Get(int id)
     {
         Skill skill = null;
         Skills.TryGetValue(id, out skill);
