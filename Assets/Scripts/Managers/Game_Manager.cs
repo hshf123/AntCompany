@@ -115,6 +115,26 @@ public class Game_Manager
         }
         Wearing.Add(slot, equipment);
         Managers.Inven.SelectedItem = null;
+
+        Define.EquipmentType type = (Define.EquipmentType)equipment.Type;
+        switch (type)
+        {
+            case Define.EquipmentType.Attack:
+                TotalAttack += (equipment as AttackEquipment).Attack;
+                break;
+            case Define.EquipmentType.AttackSpeed:
+                TotalAttackSpeed += (equipment as AttackSpeedEquipment).AttackSpeed;
+                break;
+            case Define.EquipmentType.MaxHp:
+                int maxHp = (equipment as MaxHpEquipment).MaxHp;
+                TotalMaxHP += maxHp;
+                TotalHP += maxHp;
+                break;
+            case Define.EquipmentType.CoolTimeReduce:
+                float coolTimeReduce = 1 - (equipment as CoolTimeReduceEquipment).CoolTimeReduce;
+                ReduceCoolTime(coolTimeReduce);
+                break;
+        }
     }
     public void ClearEquipment(int slot)
     {
@@ -281,38 +301,9 @@ public class Game_Manager
             int skillCount = 0;
             foreach (Skill skill in save.Skill)
             {
-                Define.SkillType type = (Define.SkillType)skill.Type;
-                switch (type)
-                {
-                    case Define.SkillType.Range:
-                        {
-                            Skill s;
-                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
-                                SelectSkill(skillCount, s);
-                        }
-                        break;
-                    case Define.SkillType.Target:
-                        {
-                            Skill s;
-                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
-                                SelectSkill(skillCount, s);
-                        }
-                        break;
-                    case Define.SkillType.Debuff:
-                        {
-                            Skill s;
-                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
-                                SelectSkill(skillCount, s);
-                        }
-                        break;
-                    case Define.SkillType.Buff:
-                        {
-                            Skill s;
-                            if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
-                                SelectSkill(skillCount, s);
-                        }
-                        break;
-                }
+                Skill s;
+                if (Managers.Data.SkillDict.TryGetValue(skill.Id, out s))
+                    SelectSkill(skillCount, s);
                 skillCount++;
             }
         }
@@ -321,38 +312,9 @@ public class Game_Manager
             int equipCount = 0;
             foreach (Equipment equipment in save.Equipment)
             {
-                Define.EquipmentType type = (Define.EquipmentType)equipment.Type;
-                switch (type)
-                {
-                    case Define.EquipmentType.Attack:
-                        {
-                            Equipment equip;
-                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(equipCount, equip);
-                        }
-                        break;
-                    case Define.EquipmentType.AttackSpeed:
-                        {
-                            Equipment equip;
-                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(equipCount, equip);
-                        }
-                        break;
-                    case Define.EquipmentType.MaxHp:
-                        {
-                            Equipment equip;
-                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(equipCount, equip);
-                        }
-                        break;
-                    case Define.EquipmentType.CoolTimeReduce:
-                        {
-                            Equipment equip;
-                            if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
-                                SelectEquipment(equipCount, equip);
-                        }
-                        break;
-                }
+                Equipment equip;
+                if (Managers.Data.EquipmentDict.TryGetValue(equipment.Id, out equip))
+                    SelectEquipment(equipCount, equip);
                 equipCount++;
             }
         }

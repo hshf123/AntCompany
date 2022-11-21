@@ -19,7 +19,7 @@
 		{
 			"Id" : 9,
 			"Type" : 1,
-			"Name" : "범위 스킬13",
+			"Name" : "범위 스킬3",
 			"Path" : "Sprites/Main/Common/icon_notice",
 			"CoolTime" : 6,
 			"Damage" : 24
